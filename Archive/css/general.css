@@ -1,0 +1,6 @@
+body::-webkit-scrollbar {
+  width: 0;
+}
+body::-webkit-scrollbar-track {
+  background: transparent; /* Make scrollbar track transparent */
+}

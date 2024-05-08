@@ -1,0 +1,19 @@
+.form-control {
+  border: 1px solid #000;
+  border-radius: 0;
+}
+label span {
+  color: #fa0202;
+}
+p {
+  font-weight: 700;
+}
+h1 {
+  color: #005975;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 3px;
+}

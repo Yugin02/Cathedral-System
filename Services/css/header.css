@@ -1,0 +1,48 @@
+.header::before {
+  content: "";
+  height: inherit;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  background-image: url(../images/bgImagee.png);
+  background-position: 50% 60%;
+  background-size: cover;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+.logo {
+  z-index: 3;
+  top: 0;
+}
+.logo ul li a {
+  text-decoration: none;
+  color: #000;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 12px; /* 80% */
+  letter-spacing: 0.45px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.logo ul {
+  margin-bottom: 0 !important;
+  height: 50px;
+  border-bottom: #000 1px solid;
+}
+.logo ul li:nth-child(2) a {
+  color: #fff;
+  text-shadow: 1px 1px #000;
+}
+nav {
+  overflow: hidden;
+}
+.form div:hover {
+  color: #005975;
+  cursor: pointer;
+}
+@media (width < 600px) {
+  body {
+    display: none;
+  }
+}
