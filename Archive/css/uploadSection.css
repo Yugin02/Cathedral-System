@@ -40,3 +40,15 @@
   height: 90%;
   overflow-y: auto;
 }
+#close_image {
+  cursor: pointer;
+}
+.image_form {
+  height: 80px;
+}
+.image_form button {
+  height: inherit;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+}

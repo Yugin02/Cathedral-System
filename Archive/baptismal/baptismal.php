@@ -161,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <?php
           if (isset($_POST['search1'])) {
             $book_number_value = mysqli_real_escape_string($con, $_POST['search']);
-            $_SESSION['book_number'] = $book_number_value; // Store the updated value in session
+            $_SESSION['book_number'] = $book_number_value;
             $sql = "SELECT * FROM `baptismal` 
               WHERE Book_number = '$book_number_value'
               and Book_page = '1'";
@@ -287,7 +287,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </section>
 
   <?php
-
   if (isset($_GET["id"])) {
     $live_birth_id = $_GET["id"];
     $sql1 = "SELECT * from `baptismal` where id='$live_birth_id'";
@@ -296,7 +295,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Child_name = $row1['Child_name'];
     $Child_familyname = $row1['Child_familyname'];
     $live_birth_name = $row1['live_birth_image'];
-
   ?>
     <?php
     echo
@@ -357,7 +355,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     document.getElementById(\"show_image\").addEventListener(\"click\", function() {
       image.style.visibility = \"visible\";
       image.style.zIndex = \"6\";
-      console.log(\"asd\");
     });
     </script>
     ";

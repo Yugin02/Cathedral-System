@@ -1,1 +1,1 @@
-"# Cathedral-System" 
+# Cathedral-System

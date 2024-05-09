@@ -85,18 +85,6 @@ td button {
   padding: 7% 30%;
   font-weight: 600;
 }
-#close_image {
-  cursor: pointer;
-}
-.image_form {
-  height: 80px;
-}
-.image_form button {
-  height: inherit;
-  width: 100%;
-  border: none;
-  background-color: transparent;
-}
 
 @media screen and (max-width: 1000px) {
   nav ul li a {
