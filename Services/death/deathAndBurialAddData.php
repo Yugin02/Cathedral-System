@@ -47,15 +47,42 @@ if (isset($_POST['submit'])) {
   $Book_page = $_POST['Book-page'];
   $Book_line = $_POST['Book-line'];
 
-  $sql = "insert into `death_and_burial` (id_number, deceased_name, deceased_familyname, age, death_month, death_day, death_year, burial_month, burial_day, burial_year, relative_name, relative_familyname, deceased_municipality, deceased_barangay, minister, burial_municipality, burial_barangay, sacraments, priest, Book_number, Book_page, Book_line) values ('$random_number', '$deceased_name','$deceased_familyname', '$age', '$death_month', '$death_day', '$death_year', '$burial_month', '$burial_day', '$burial_year', '$relative_name', '$relative_familyname', '$deceased_municipality', '$deceased_barangay', '$minister','$burial_municipality', '$burial_barangay', '$sacraments' ,'$priest', '$Book_number', '$Book_page', '$Book_line')";
-  $result = mysqli_query($con, $sql);
-  if ($result) {
-    echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: absolute; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
-    <p style=\"text-align: center;\">Data Added Successfully! <br> Identification Number: <span style=\"border-bottom: 1px solid #000; padding: 0 10px;\"> $random_number</span></p>
-    <button class=\"btn btn-primary\" style=\"padding: 1.5% 5%; margin-top: 3%;\"><a style=\"text-decoration: none; color: #fff;\" href=\"deathAndBurial.php\">Proceed</a></button>
-  </div>";
+  $imageName = $_FILES['death-cert']['name'];
+  $imageTmp = $_FILES['death-cert']['tmp_name'];
+  $imageSize = $_FILES['death-cert']['size'];
+  $error = $_FILES['death-cert']['error'];
+  $imageType = $_FILES['death-cert']['type'];
+
+  $image_ext = explode('.', $imageName);
+  $imageAct_ext = strtolower(end($image_ext));
+
+  $allowed_ext = array('jpg', 'jpeg', 'png');
+
+  if (in_array($imageAct_ext, $allowed_ext)) {
+    if ($error === 0) {
+      if ($imageSize < 500000) {
+        $imageNew_name = $deceased_name . "_" . $deceased_familyname . "." . $imageAct_ext;
+        $folder = '../../images/Death and Burial/' . $imageNew_name;
+        move_uploaded_file($imageTmp, $folder);
+
+        $sql = "insert into `death_and_burial` (id_number, deceased_name, deceased_familyname, age, death_month, death_day, death_year, burial_month, burial_day, burial_year, relative_name, relative_familyname, deceased_municipality, deceased_barangay, minister, burial_municipality, burial_barangay, sacraments, priest, Book_number, Book_page, Book_line, death_cert_images) values ('$random_number', '$deceased_name','$deceased_familyname', '$age', '$death_month', '$death_day', '$death_year', '$burial_month', '$burial_day', '$burial_year', '$relative_name', '$relative_familyname', '$deceased_municipality', '$deceased_barangay', '$minister','$burial_municipality', '$burial_barangay', '$sacraments' ,'$priest', '$Book_number', '$Book_page', '$Book_line', '$imageNew_name')";
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+          echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: absolute; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
+          <p style=\"text-align: center;\">Data Added Successfully! <br> Identification Number: <span style=\"border-bottom: 1px solid #000; padding: 0 10px;\"> $random_number</span></p>
+          <button class=\"btn btn-primary\" style=\"padding: 1.5% 5%; margin-top: 3%;\"><a style=\"text-decoration: none; color: #fff;\" href=\"deathAndBurial.php\">Proceed</a></button>
+        </div>";
+        } else {
+          die(mysqli_error($con));
+        }
+      } else {
+        echo "<script>alert(\"The File is too Big\")</script>";
+      }
+    } else {
+      echo "<script>alert(\"Error Uploading File\")</script>";
+    }
   } else {
-    die(mysqli_error($con));
+    echo "<script>alert(\"This Type of File is not Acceptable!\") </script>";
   }
 }
 
@@ -75,7 +102,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-  <form method="post" class="d-flex flex-column align-items-center" style="min-width: 879px; padding:0 7%;">
+  <form method="post" class="d-flex flex-column align-items-center" enctype="multipart/form-data" style="min-width: 879px; padding:0 7%;">
     <div class="form d-flex flex-column" style="width:100%; margin:50px 0">
       <div class="d-flex align-items-center align-self-start" id="back" style="letter-spacing: 3px;">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
