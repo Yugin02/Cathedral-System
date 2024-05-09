@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="../css/baptismal.css">
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/general.css">
+  <link rel="stylesheet" href="../css/uploadSection.css">
 </head>
 
 <body>
@@ -285,9 +286,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   ?>
     <?php
     echo
-    "<div class=\"p-3 d-flex flex-column\" style=\"position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); background-color:#fff; width:40%; height: auto; border:1px solid #000; min-width:300px; visibility:visible; position:fixed; border-radius: 10px; z-index:5;\">
-    <h3 style=\"border-bottom:#000 1px solid; padding-bottom: 15px; margin-bottom: 15px;\">Upload Section</h3>
-    <p>Name: <span style=\"border-bottom: #000 1px solid; padding:0 5px\">$Child_name $Child_familyname</span> </p>
+    "<div class=\"p-3 d-flex flex-column\" id=\"uploadFile\">
+    <h3>Upload Section</h3>
+    <p>Name: <span>$Child_name $Child_familyname</span> </p>
     <table class=\"table text-center table-hover\" style=\"font-size: 14px !important;\">
       <thead class=\"align-middle\">
         <tr>
@@ -312,11 +313,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <?php
     echo
-    "<div id=\"live_birth_img\" class=\"d-flex flex-column justify-content-between gap-2\" style=\"position: absolute; transform:translate(-50%, -50%); top:50%; left:50%; position:fixed; background-color:#FFF; border-radius:10px; border:#000 1px solid; padding: 10px; visibility: hidden; width:45%; height:90%; overflow-y:auto;\">
+    "<div id=\"live_birth_img\" class=\"d-flex flex-column justify-content-between gap-2\">
     <div class=\"d-flex justify-content-between\">
-    <svg style= \"cursor:pointer;\" id=\"full_screen\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-fullscreen\" viewBox=\"0 0 16 16\">
-      <path d=\"M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5\"/>
-    </svg>
+    <div style= \"cursor:pointer;\" id=\"full_screen\">
+      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-fullscreen\" viewBox=\"0 0 16 16\">
+        <path d=\"M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5\"/>
+      </svg>
+    </div>
     <svg style= \"cursor:pointer;\" id=\"close_image\" xmlns=\"http://www.w3.org/2000/svg\" width=\"25\" height=\"25\" fill=\"currentColor\" class=\"bi bi-x-circle\" viewBox=\"0 0 16 16\">
       <path d=\"M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16\" />
       <path d=\"M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708\" />
@@ -332,8 +335,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     document.getElementById(\"close\").addEventListener(\"click\", function() {
       window.location.href = \"baptismal.php\";
     });
-    </script>";
-    echo "<script>
     var image = document.getElementById(\"live_birth_img\");
     document.getElementById(\"close_image\").addEventListener(\"click\", function() {
       image.style.visibility = \"hidden\";
@@ -344,17 +345,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       image.style.zIndex = \"6\";
       console.log(\"asd\");
     });
-    document.gerElementById(\"full_screen\").addEventListener(\"click\", function(){
-      var min_max_screen = document.getElementById(\"full_screen\");
-      if (image.style.width === \"\") {}
-      
-    });
-    
-
     </script>
-    
-    
     ";
+    echo '<script>
+    var min_max_screen = document.getElementById("full_screen");
+    min_max_screen.addEventListener("click", function(){
+      var min_screen = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-fullscreen-exit" viewBox="0 0 16 16">
+        <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z"/>
+      </svg>`;
+      var full_screen = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-fullscreen" viewBox="0 0 16 16">
+        <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5"/>
+      </svg>`;  
+      if (image.style.width === "45%") {
+        image.style.width = "100%";
+        image.style.height = "100%";
+        min_max_screen.innerHTML = min_screen;
+      } else {
+        image.style.width = "45%";
+        image.style.height = "90%";
+        min_max_screen.innerHTML = full_screen;
+      }
+    });
+    </script>';
   } else {
   }
   ?>
