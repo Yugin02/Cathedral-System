@@ -40,6 +40,21 @@
   height: 90%;
   overflow-y: auto;
 }
+#marriage_image {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  background-color: #fff;
+  border-radius: 10px;
+  border: #000 1px solid;
+  padding: 10px;
+  z-index: 10;
+  width: 45%;
+  height: 90%;
+  overflow-y: auto;
+}
 #close_image {
   cursor: pointer;
 }
