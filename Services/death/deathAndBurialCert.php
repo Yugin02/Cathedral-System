@@ -21,6 +21,9 @@ $priest = $row['priest'];
 $Book_number = $row['Book_number'];
 $Book_page = $row['Book_page'];
 $Book_line = $row['Book_line'];
+$currentMonth = date('F');
+$currentDay = date('j');
+$currentYear = date('Y');
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +89,7 @@ $Book_line = $row['Book_line'];
       <p>and was buried at the <span><?php echo $burial_address ?></span></p>
       <p>of Borongan, Eastern Samar on the <span><?php echo $burial_day ?></span> day of <span><?php echo $burial_month ?></span></p>
       <p>as appears on the Parish Death Register Book: <span><?php echo $Book_number ?></span> Page: <span><?php echo $Book_page ?></span> Line: <span><?php echo $Book_line ?></span></p>
-      <p style="margin-top: 5%;">Given this <span></span> day of <span></span> 2024 at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
+      <p style="margin-top: 5%;">Given this <span><?php echo $currentDay ?></span> day of <span><?php echo $currentMonth ?></span> <?php echo $currentYear ?> at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;

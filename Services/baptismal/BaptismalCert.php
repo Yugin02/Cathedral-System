@@ -21,6 +21,9 @@ $Book_line = $row['Book_line'];
 $baptism_month = $row['baptism_month'];
 $baptism_day = $row['baptism_day'];
 $baptism_year = $row['baptism_year'];
+$currentMonth = date('F');
+$currentDay = date('j');
+$currentYear = date('Y');
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +88,7 @@ $baptism_year = $row['baptism_year'];
       <p>and the sponsor being: <span><?php echo $godfather_name ?> and <?php echo $godmother_name ?></span></p>
       <p>as it appears in the CONFIRMATION REGISTER</p>
       <p>Book: <span><?php echo $Book_number ?></span> Page: <span><?php echo $Book_page ?></span> Line: <span><?php echo $Book_line ?></span></p>
-      <p style="margin-top: 5%;">Given this <span></span> day of <span></span> 2024 at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
+      <p style="margin-top: 5%;">Given this <span><?php echo $currentDay ?></span> day of <span><?php echo $currentMonth ?></span> <?php echo $currentYear ?> at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;

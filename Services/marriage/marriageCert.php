@@ -22,6 +22,9 @@ $priest = $row['priest'];
 $Book_number = $row['Book_number'];
 $Book_page = $row['Book_page'];
 $Book_line = $row['Book_line'];
+$currentMonth = date('F');
+$currentDay = date('j');
+$currentYear = date('Y');
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +90,7 @@ $Book_line = $row['Book_line'];
       <p>on the <span><?php echo $marriage_day ?></span> day of <span><?php echo $marriage_month ?></span> , <span><?php echo $marriage_year ?></span> before the</p>
       <p>Fr. <span><?php echo $minister ?></span> at the Cathedral Parish of the Nativity of our Lady, <br> Borongan, Eastern Samar, <br> the witness being; <br> as it appears in the MARRIAGE REGISTER,</p>
       <p>Book No: <span><?php echo $Book_number ?></span> Page: <span><?php echo $Book_page ?></span> Line: <span><?php echo $Book_line ?></span></p>
-      <p style="margin-top: 6%;">Given this <span></span> day of <span></span> 2024 at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
+      <p style="margin-top: 6%;">Given this <span><?php echo $currentDay ?></span> day of <span><?php echo $currentMonth ?></span> <?php echo $currentYear ?> at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;

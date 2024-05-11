@@ -6,6 +6,9 @@ $id = $_GET['certid'];
 $sql = "SELECT *, CONCAT_WS(' ', Child_familyname, Child_name) AS fullname, CONCAT_WS(' ', baptism_month, baptism_day, baptism_year) AS baptized_date, CONCAT_WS(' ', baptism_municipality, baptism_barangay) AS parish_address, CONCAT_WS(' ', Mother_familyname, Mother_name) AS mother_name, CONCAT_WS(' ', Father_familyname, Father_name) AS father_name, CONCAT_WS(' ', Godmother_familyname, Godmother_name) AS godmother_name, CONCAT_WS(' ', Godfather_familyname, Godfather_name) AS godfather_name FROM `confirmation` where id=$id";
 $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_assoc($result);
+$currentMonth = date('F');
+$currentDay = date('j');
+$currentYear = date('Y');
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +73,7 @@ $row = mysqli_fetch_assoc($result);
       <p>and the sponsor being: <span><?php echo $row['godfather_name'] ?> and <?php echo $row['godmother_name'] ?></span></p>
       <p>as it appears in the CONFIRMATION REGISTER</p>
       <p>Book: <span> <?php echo $row['Book_number'] ?></span> Page: <span> <?php echo $row['Book_page'] ?></span> Line: <span><?php echo $row['Book_line'] ?></span></p>
-      <p style="margin-top: 5%;">Given this <span></span> day of <span></span> 2024 at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
+      <p style="margin-top: 5%;">Given this <span><?php echo $currentDay ?></span> day of <span><?php echo $currentMonth ?></span> <?php echo $currentYear ?> at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;
