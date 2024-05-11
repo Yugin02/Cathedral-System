@@ -39,6 +39,7 @@ $remarks = $row['remarks'];
 $Book_number = $row['Book_number'];
 $Book_page = $row['Book_page'];
 $Book_line = $row['Book_line'];
+$legitimity = $row['legitimity'];
 
 $month1 = date('m', strtotime($month));
 $birth_date = $year . "-" . str_pad($month1, 2, "0", STR_PAD_LEFT) . "-" . str_pad($day, 2, "0", STR_PAD_LEFT);
@@ -80,11 +81,9 @@ if (isset($_POST['submit'])) {
   $Book_page = $_POST['Book-page'];
   $Book_line = $_POST['Book-line'];
   $remarks = ucfirst($_POST['Remarks']);
-  $imageName = $_FILES['live-birth']['name'];
-  $image = $_FILES['live-birth']['tmp_name'];
-  $imgContent = addslashes(file_get_contents($image));
+  $legitimity = ucfirst($_POST['legitimity']);
 
-  $sql = "update `baptismal` set Child_name='$Child_name', Child_familyname='$Child_familyname', month='$month', day='$day', year='$year', baptism_month='$baptism_month', baptism_day='$baptism_day', baptism_year='$baptism_year', parents_residence_municipality='$municipality', parents_residence_barangay='$barangay', Godfather_name='$godfather_name', Godfather_familyname='$godfather_familyname', godfather_residence_municipality= '$godfather_residence_municipality', godfather_residence_barangay= '$godfather_residence_barangay', Godmother_name='$godmother_name', Godmother_familyname='$godmother_familyname',godmother_residence_municipality='$godmother_residence_municipality', godmother_residence_barangay='$godmother_residence_barangay', Mother_name='$mother_name', Mother_familyname='$mother_familyname', mother_origin_municipality='$mother_origin_municipality', mother_origin_barangay='$mother_origin_barangay', Father_name='$father_name', Father_familyname='$father_familyname', father_origin_municipality='$father_origin_municipality', father_origin_barangay='$father_origin_barangay', parents_residence_municipality='$parents_residence_municipality', parents_residence_barangay='$parents_residence_barangay', remarks='$remarks', minister='$minister', priest='$priest', Book_number='$Book_number', Book_page='$Book_page', Book_line='$Book_line' where id=$id";
+  $sql = "update `baptismal` set Child_name='$Child_name', Child_familyname='$Child_familyname', month='$month', day='$day', year='$year', baptism_month='$baptism_month', baptism_day='$baptism_day', baptism_year='$baptism_year', parents_residence_municipality='$municipality', parents_residence_barangay='$barangay', Godfather_name='$godfather_name', Godfather_familyname='$godfather_familyname', godfather_residence_municipality= '$godfather_residence_municipality', godfather_residence_barangay= '$godfather_residence_barangay', Godmother_name='$godmother_name', Godmother_familyname='$godmother_familyname',godmother_residence_municipality='$godmother_residence_municipality', godmother_residence_barangay='$godmother_residence_barangay', Mother_name='$mother_name', Mother_familyname='$mother_familyname', mother_origin_municipality='$mother_origin_municipality', mother_origin_barangay='$mother_origin_barangay', Father_name='$father_name', Father_familyname='$father_familyname', father_origin_municipality='$father_origin_municipality', father_origin_barangay='$father_origin_barangay', parents_residence_municipality='$parents_residence_municipality', parents_residence_barangay='$parents_residence_barangay', remarks='$remarks', minister='$minister', priest='$priest', Book_number='$Book_number', Book_page='$Book_page', Book_line='$Book_line', legitimity='$legitimity' where id=$id";
   $result = mysqli_query($con, $sql);
   if ($result) {
     header('location:baptismal.php');
@@ -141,6 +140,13 @@ if (isset($_POST['submit'])) {
             <p>Date of Baptism <span style="color: red; font-weight:normal">*</span></p>
             <input type="date" class="form-control" name="Baptismal" autocomplete="off" required value="<?php echo $baptism_date ?>">
           </div>
+        </div>
+        <div class="mb-3">
+          <p>Legitimity <span style="font-weight: normal; color:red;">*</span></p>
+          <select style="border: 1px solid #000; border-radius:0;" class="form-select" name="legitimity" required>
+            <option <?php echo ($legitimity == 'Legitimate') ? 'selected' : ''; ?>>Legitimate</option>
+            <option <?php echo ($legitimity == 'Illegitimate') ? 'selected' : ''; ?>>Illegitimate</option>
+          </select>
         </div>
         <p>Godfather</p>
         <div>

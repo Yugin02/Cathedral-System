@@ -58,6 +58,7 @@ if (isset($_POST['submit'])) {
   $Book_page = $_POST['Book-page'];
   $Book_line = $_POST['Book-line'];
   $remarks = ucfirst($_POST['Remarks']);
+  $legitimity = ucfirst($_POST['legitimity']);
 
 
   $imageName = $_FILES['live-birth']['name'];
@@ -78,16 +79,15 @@ if (isset($_POST['submit'])) {
         $folder = '../../images/Baptismal/' . $imageNew_name;
         move_uploaded_file($imageTmp, $folder);
 
-        $insert = $con->prepare("INSERT INTO baptismal (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname, Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay, father_origin_municipality, father_origin_barangay, parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, live_birth_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $insert->bind_param("ssssssssssssssssssssssssssssssssss", $random_number, $Child_name, $Child_familyname, $month, $day, $year, $baptism_month, $baptism_day, $baptism_year, $father_name, $father_familyname, $mother_name, $mother_familyname, $mother_origin_municipality, $mother_origin_barangay, $father_origin_municipality, $father_origin_barangay, $parents_residence_municipality, $parents_residence_barangay, $godfather_name, $godfather_familyname, $godfather_residence_municipality, $godfather_residence_barangay, $godmother_name, $godmother_familyname, $godmother_residence_municipality, $godmother_residence_barangay, $minister, $priest, $Book_number, $Book_page, $Book_line, $remarks, $imageNew_name);
-
-        if ($insert->execute()) {
+        $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, live_birth_image, legitimity) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$imageNew_name', '$legitimity')";
+        $result = mysqli_query($con, $sql);
+        if ($result) {
           echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: absolute; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
           <p style=\"text-align: center;\">Data Added Successfully! <br> Identification Number: <span style=\"border-bottom: 1px solid #000; padding: 0 10px;\"> $random_number</span></p>
           <button class=\"btn btn-primary\" style=\"padding: 1.5% 5%; margin-top: 3%;\"><a style=\"text-decoration: none; color: #fff;\" href=\"baptismal.php\">Proceed</a></button>
         </div>";
         } else {
-          echo "<script>alert(\"Error Inserting Data!\")</script>";
+          die(mysqli_error($con));
         }
       } else {
         echo "<script>alert(\"The File is too Big\")</script>";
@@ -146,6 +146,13 @@ if (isset($_POST['submit'])) {
             <p>Date of Baptism <span style="color: red; font-weight:normal">*</span></p>
             <input type="date" class="form-control" name="Baptismal" autocomplete="off" required>
           </div>
+        </div>
+        <div class="mb-3">
+          <p>Legitimity <span style="font-weight: normal; color:red;">*</span></p>
+          <select style="border: 1px solid #000; border-radius:0;" class="form-select" name="legitimity" required>
+            <option>Legitimate</option>
+            <option>Illegitimate</option>
+          </select>
         </div>
         <p>Godfather</p>
         <div>

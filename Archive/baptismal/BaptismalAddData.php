@@ -58,8 +58,9 @@ if (isset($_POST['submit'])) {
   $Book_page = $_POST['Book-page'];
   $Book_line = $_POST['Book-line'];
   $remarks = ucfirst($_POST['Remarks']);
+  $legitimity = ucfirst($_POST['legitimity']);
 
-  $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks')";
+  $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, legitimity) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$legitimity')";
   $result = mysqli_query($con, $sql);
   if ($result) {
     header("location: baptismal.php");
@@ -114,6 +115,13 @@ if (isset($_POST['submit'])) {
             <p>Date of Baptism</p>
             <input type="date" class="form-control" name="Baptismal" autocomplete="off" required>
           </div>
+        </div>
+        <div class="mb-3">
+          <p>Legitimity <span style="font-weight: normal; color:red;">*</span></p>
+          <select style="border: 1px solid #000; border-radius:0;" class="form-select" name="legitimity" required>
+            <option>Legitimate</option>
+            <option>Illegitimate</option>
+          </select>
         </div>
         <p>Godfather</p>
         <div>
