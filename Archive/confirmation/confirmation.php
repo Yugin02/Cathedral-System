@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       <td ><div>' . $row['Godmother_name'] . ' ' . $row['Godmother_familyname'] . '</div><div style="border-top:1px solid #000;">' . $row['Godfather_name'] . ' ' . $row['Godfather_familyname'] . '</div></td>
                       <td >' . $row['confirmed_year'] . ' ' . $row['confirmed_month'] . ' ' . $row['confirmed_day'] . '</td>
                       <td >' . $row['minister'] . '</td>
-                      <td ></td>';
+                      <td >' . $row['remarks'] . '</td>';
           ?>
                   <td style="cursor:pointer;">
                     <form class="image_form" action="confirmation.php" method="get">
@@ -176,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       <td ><div>' . $row['Godmother_name'] . ' ' . $row['Godmother_familyname'] . '</div><div style="border-top:1px solid #000;">' . $row['Godfather_name'] . ' ' . $row['Godfather_familyname'] . '</div></td>
                       <td >' . $row['confirmed_year'] . ' ' . $row['confirmed_month'] . ' ' . $row['confirmed_day'] . '</td>
                       <td >' . $row['minister'] . '</td>
-                      <td ></td>';
+                      <td >' . $row['remarks'] . '</td>';
                   ?>
 
                     <td style="cursor:pointer;">
@@ -210,7 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       <td ><div>' . $row['Godmother_name'] . ' ' . $row['Godmother_familyname'] . '</div><div style="border-top:1px solid #000;">' . $row['Godfather_name'] . ' ' . $row['Godfather_familyname'] . '</div></td>
                       <td >' . $row['confirmed_year'] . ' ' . $row['confirmed_month'] . ' ' . $row['confirmed_day'] . '</td>
                       <td >' . $row['minister'] . '</td>
-                      <td ></td>';
+                      <td >' . $row['remarks'] . '</td>';
                   ?>
 
                   <td style="cursor:pointer;">

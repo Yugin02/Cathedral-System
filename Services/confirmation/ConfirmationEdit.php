@@ -26,6 +26,7 @@ $confirmed_day = $row['confirmed_day'];
 $confirmed_year = $row['confirmed_year'];
 $minister = $row['minister'];
 $priest = $row['priest'];
+$remarks = $row['remarks'];
 $Book_number = $row['Book_number'];
 $Book_page = $row['Book_page'];
 $Book_line = $row['Book_line'];
@@ -60,11 +61,12 @@ if (isset($_POST['submit'])) {
   $godmother_familyname = $_POST['Godmother-familyname'];
   $minister = $_POST['minister'];
   $priest = $_POST['priest'];
+  $remarks = $_POST['remarks'];
   $Book_number = $_POST['Book-number'];
   $Book_page = $_POST['Book-page'];
   $Book_line = $_POST['Book-line'];
 
-  $sql = "update `confirmation` set Child_name='$Child_name', Child_familyname='$Child_familyname', Godfather_name='$godfather_name', Godfather_familyname='$godfather_familyname', Godmother_name='$godmother_name', Godmother_familyname='$godmother_familyname', Father_name='$father_name', Father_familyname='$father_familyname',Mother_name='$mother_name', Mother_familyname='$mother_familyname', baptism_municipality='$baptism_municipality', baptism_barangay='$baptism_barangay', baptism_month='$baptism_month', baptism_day='$baptism_day', baptism_year='$baptism_year', confirmed_month='$confirmed_month', confirmed_day='$confirmed_day', confirmed_year='$confirmed_year', priest='$priest', minister='$minister', Book_number='$Book_number', Book_page='$Book_page', Book_line='$Book_line' where id='$id'";
+  $sql = "update `confirmation` set Child_name='$Child_name', Child_familyname='$Child_familyname', Godfather_name='$godfather_name', Godfather_familyname='$godfather_familyname', Godmother_name='$godmother_name', Godmother_familyname='$godmother_familyname', Father_name='$father_name', Father_familyname='$father_familyname',Mother_name='$mother_name', Mother_familyname='$mother_familyname', baptism_municipality='$baptism_municipality', baptism_barangay='$baptism_barangay', baptism_month='$baptism_month', baptism_day='$baptism_day', baptism_year='$baptism_year', confirmed_month='$confirmed_month', confirmed_day='$confirmed_day', confirmed_year='$confirmed_year', priest='$priest', minister='$minister', Book_number='$Book_number', Book_page='$Book_page', Book_line='$Book_line', remarks='$remarks' where id='$id'";
   $result = mysqli_query($con, $sql);
   if ($result) {
     header('location:confirmation.php');
@@ -141,6 +143,12 @@ if (isset($_POST['submit'])) {
           <p>Officiating Minister <span style="color: red; font-weight:normal">*</span></p>
           <div class="d-flex align-items-end gap-3">
             <input type="text" class="form-control" name="minister" autocomplete="off" required value="<?php echo $minister ?>">
+          </div>
+        </div>
+        <div class="mb-3">
+          <p>Remarks <span style="color: red; font-weight:normal">*</span></p>
+          <div class="d-flex align-items-end gap-3">
+            <input type="text" class="form-control" name="remarks" autocomplete="off" required value="<?php echo $remarks ?>">
           </div>
         </div>
         <p>Book</p>

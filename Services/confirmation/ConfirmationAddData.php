@@ -48,6 +48,7 @@ if (isset($_POST['submit'])) {
   $godmother_familyname = $_POST['Godmother-familyname'];
   $minister = $_POST['minister'];
   $priest = $_POST['priest'];
+  $remarks = $_POST['remarks'];
   $Book_number = $_POST['Book-number'];
   $Book_page = $_POST['Book-page'];
   $Book_line = $_POST['Book-line'];
@@ -71,7 +72,7 @@ if (isset($_POST['submit'])) {
         $folder = '../../images/Confirmation/' . $imageNew_name;
         move_uploaded_file($imageTmp, $folder);
 
-        $sql = "insert into `confirmation` (id_number, Child_name, Child_familyname, confirmed_month, confirmed_day, confirmed_year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, baptism_municipality, baptism_barangay, Godfather_name, Godfather_familyname, Godmother_name, Godmother_familyname, minister, priest, Book_number, Book_page, Book_line, child_baptismal_image) values ('$random_number','$Child_name','$Child_familyname', '$confirmed_month', '$confirmed_day', '$confirmed_year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$baptism_municipality', '$baptism_barangay', '$godfather_name', '$godfather_familyname', '$godmother_name', '$godmother_familyname', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$imageNew_name')";
+        $sql = "insert into `confirmation` (id_number, Child_name, Child_familyname, confirmed_month, confirmed_day, confirmed_year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, baptism_municipality, baptism_barangay, Godfather_name, Godfather_familyname, Godmother_name, Godmother_familyname, minister, priest, Book_number, Book_page, Book_line, child_baptismal_image, remarks) values ('$random_number','$Child_name','$Child_familyname', '$confirmed_month', '$confirmed_day', '$confirmed_year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$baptism_municipality', '$baptism_barangay', '$godfather_name', '$godfather_familyname', '$godmother_name', '$godmother_familyname', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$imageNew_name', '$remarks')";
         $result = mysqli_query($con, $sql);
         if ($result) {
           echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: absolute; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
@@ -160,6 +161,12 @@ if (isset($_POST['submit'])) {
           <p>Officiating Minister <span style="color: red; font-weight:normal">*</span></p>
           <div class="d-flex align-items-end gap-3">
             <input type="text" class="form-control" name="minister" autocomplete="off" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <p>Remarks <span style="color: red; font-weight:normal">*</span></p>
+          <div class="d-flex align-items-end gap-3">
+            <input type="text" class="form-control" name="remarks" autocomplete="off" required>
           </div>
         </div>
         <p>Book</p>
