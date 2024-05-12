@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <input type="hidden" name="value1" value="<?php echo $value; ?>">
     </form>
     <div class="table-responsive">
-      <table class="table text-center table-responsive table-hover align-middle" style="background: #88CAD6; border:1px solid #000; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); font-size: 13px; width: 86rem">
+      <table class="table text-center table-responsive table-hover align-middle" style="background: #88CAD6; border:1px solid #000; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); font-size: 13px; width:100vw; min-width: 86rem">
         <thead class="table-primary align-middle" style="border: 1px solid #000;">
           <tr style="border: 1px solid #000;">
             <th colspan="1" style="background-color: #88CAD6;">
