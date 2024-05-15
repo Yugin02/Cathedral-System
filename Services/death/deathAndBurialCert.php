@@ -45,7 +45,6 @@ $currentYear = date('Y');
 <body class="d-flex flex-column align-items-center">
   <div class="d-flex justify-content-between align-items-center align-self-stretch p-5">
     <div class="d-flex gap-4">
-      <a id="download" class="certbutton" download="certificate.jpg">Download<img src="../icon/download.png" alt=""></a>
       <button class="certbutton" onclick="printCertificate()">Print<img src="../icon/print.png" alt=""></button>
     </div>
     <div><a href="./deathAndBurial.php"><img src="../icon/close.png" alt=""></a></div>
@@ -97,38 +96,37 @@ $currentYear = date('Y');
       margin:3% 10% 0"> <span><?php echo $priest ?></span> <br>Pastor</p>
   </section>
   <script type="text/javascript">
-    $(document).ready(function() {
-      var element = document.getElementById("certificate");
-      $("#download").on('click', function() {
-        downloadImage();
-      });
-
-      function downloadImage() {
-        html2canvas(element).then(function(canvas) {
-          var imageData = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-          var deceasedName = "<?php echo $deceased_name ?>";
-          var link = document.createElement('a');
-          link.download = deceasedName + '.png';
-          link.href = imageData;
-          link.click();
-        });
-      }
-    });
-
     function printCertificate() {
+      var certificateElement = document.getElementById("certificate");
+
+      var originalBorder = certificateElement.style.border;
+      certificateElement.style.border = 'none';
 
       html2canvas(document.getElementById("certificate")).then(function(canvas) {
-        var win = window.open();
-        win.document.write('<!DOCTYPE html><html><head><title>Certificate</title></head><body style="margin: 0;"><img src="' + canvas.toDataURL() + '" style="width: 100%; height: auto;" /></body></html>');
-        win.print();
-        win.close();
+
+        certificateElement.style.border = originalBorder;
+        var win = window.open('', '_blank');
+        win.document.open();
+        win.document.write('<!DOCTYPE html>');
+        win.document.write('<html><head><title>Certificate</title>');
+        win.document.write('<link rel="stylesheet" href="certificate.css">');
+        win.document.write('<style>');
+        win.document.write('@page { margin: 0; size: auto; } body { margin: 0; } img { width: 100%; height: 100vh; object-fit: contain; }');
+        win.document.write('html, body { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }');
+        win.document.write('</style>');
+        win.document.write('</head><body>');
+        win.document.write('<img src="' + canvas.toDataURL() + '" />');
+        win.document.write('</body></html>');
+        win.document.close();
+
+        win.onload = function() {
+          win.print();
+          win.close();
+        };
       });
-      win.document.body.onload = function() {
-        win.print();
-        win.close();
-      };
     }
   </script>
+
 </body>
 
 </html>

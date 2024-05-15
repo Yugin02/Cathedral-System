@@ -179,14 +179,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <td >' . $row['Child_name'] . ' ' . $row['Child_familyname'] . '</td>
                   <td >' . $row['year'] . '</td>
                   <td >' . $row['month'] . ' ' . $row['day'] . '</td>
-                  <td "></td>
+                  <td ">' . $row['legitimity'] . '</td>
                   <td ><div>' . $row['Mother_name'] . ' ' . $row['Mother_familyname'] . '</div><div style="border-top:1px solid #000;">' . $row['Father_name'] . ' ' . $row['Father_familyname'] . '</div></td>
                   <td ><div>' . $row['mother_origin_municipality'] . ' ' . $row['mother_origin_barangay'] . '</div><div style="border-top:1px solid #000;">' . $row['father_origin_municipality'] . ' ' . $row['father_origin_barangay'] . '</div></td>
                   <td >' . $row['parents_residence_municipality'] . ' ' . $row['parents_residence_barangay'] . '</td>
                   <td ><div>' . $row['Godmother_name'] . ' ' . $row['Godmother_familyname'] . '</div><div style="border-top:1px solid #000;">' . $row['Godfather_name'] . ' ' . $row['Godfather_familyname'] . '</div></td>
                   <td ><div>' . $row['godmother_residence_municipality'] . ' ' . $row['godmother_residence_barangay'] . '</div><div style="border-top:1px solid #000;">' . $row['godfather_residence_municipality'] . ' ' . $row['godfather_residence_barangay'] . '</div></td>
                   <td >' . $row['minister'] . '</td>
-                  <td></td>';
+                  <td>' . $row['remarks'] . '</td>';
           ?>
                   <td style="cursor:pointer;">
                     <form class="image_form" action="baptismal.php" method="get">
@@ -219,14 +219,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <td >' . $row['Child_name'] . ' ' . $row['Child_familyname'] . '</td>
                   <td >' . $row['year'] . '</td>
                   <td >' . $row['month'] . ' ' . $row['day'] . '</td>
-                  <td "></td>
+                  <td ">' . $row['legitimity'] . '</td>
                   <td ><div>' . $row['Mother_name'] . ' ' . $row['Mother_familyname'] . '</div><div style="border-top:1px solid #000;">' . $row['Father_name'] . ' ' . $row['Father_familyname'] . '</div></td>
                   <td ><div>' . $row['mother_origin_municipality'] . ' ' . $row['mother_origin_barangay'] . '</div><div style="border-top:1px solid #000;">' . $row['father_origin_municipality'] . ' ' . $row['father_origin_barangay'] . '</div></td>
                   <td >' . $row['parents_residence_municipality'] . ' ' . $row['parents_residence_barangay'] . '</td>
                   <td ><div>' . $row['Godmother_name'] . ' ' . $row['Godmother_familyname'] . '</div><div style="border-top:1px solid #000;">' . $row['Godfather_name'] . ' ' . $row['Godfather_familyname'] . '</div></td>
                   <td ><div>' . $row['godmother_residence_municipality'] . ' ' . $row['godmother_residence_barangay'] . '</div><div style="border-top:1px solid #000;">' . $row['godfather_residence_municipality'] . ' ' . $row['godfather_residence_barangay'] . '</div></td>
                   <td >' . $row['minister'] . '</td>
-                  <td></td>';
+                  <td>' . $row['remarks'] . '</td>';
                   ?>
                     <td style="cursor:pointer;">
                       <form class="image_form" action="baptismal.php" method="get">
