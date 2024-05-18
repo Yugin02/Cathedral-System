@@ -35,6 +35,7 @@ function confirmDelete(id) {
   var no = document.querySelector(".no");
   var pop_up = document.querySelector(".pop_up");
   pop_up.style.visibility = "visible";
+  pop_up.style.position = "fixed";
   pop_up.style.zIndex = "1";
 
   yes.addEventListener("click", function () {
