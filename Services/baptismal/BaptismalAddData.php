@@ -1,7 +1,8 @@
 <?php
 include '../connect.php';
+$length = 6;
 
-function id_number($length = 6)
+function id_number($length)
 {
   $characters = '0123456789';
   $randomNumber = '';
@@ -10,6 +11,7 @@ function id_number($length = 6)
   }
   return $randomNumber;
 }
+
 function check_id_number($con, $randomNumber)
 {
   $query = "SELECT COUNT(*) AS count FROM baptismal WHERE id_number = '$randomNumber'";
@@ -18,10 +20,15 @@ function check_id_number($con, $randomNumber)
   return $data['count'] == 0;
 }
 
+$randomNumber = id_number($length);
+while (!check_id_number($con, $randomNumber)) {
+  $length++;
+  $randomNumber = id_number($length);
+}
 
 if (isset($_POST['submit'])) {
   do {
-    $random_number = id_number();
+    $random_number = id_number($length);
   } while (!check_id_number($con, $random_number));
 
   $birth = new DateTime($_POST['Birth']);
@@ -39,8 +46,8 @@ if (isset($_POST['submit'])) {
   $mother_name = ucfirst($_POST['Mother-name']);
   $mother_familyname = ucfirst($_POST['Mother-familyname']);
   $mother_origin_municipality = ucfirst($_POST['mother-origin-municipality']);
-  $mother_origin_barangay = ucfirst($_POST['father-origin-barangay']);
-  $father_origin_municipality = ucfirst($_POST['mother-origin-municipality']);
+  $mother_origin_barangay = ucfirst($_POST['mother-origin-barangay']);
+  $father_origin_municipality = ucfirst($_POST['father-origin-municipality']);
   $father_origin_barangay = ucfirst($_POST['father-origin-barangay']);
   $parents_residence_municipality = ucfirst($_POST['Parents-residence-municipality']);
   $parents_residence_barangay = ucfirst($_POST['Parents-residence-barangay']);
@@ -59,44 +66,52 @@ if (isset($_POST['submit'])) {
   $Book_line = $_POST['Book-line'];
   $remarks = ucfirst($_POST['Remarks']);
   $legitimity = ucfirst($_POST['legitimity']);
-
-
   $imageName = $_FILES['live-birth']['name'];
   $imageTmp = $_FILES['live-birth']['tmp_name'];
   $imageSize = $_FILES['live-birth']['size'];
   $error = $_FILES['live-birth']['error'];
   $imageType = $_FILES['live-birth']['type'];
-
   $image_ext = explode('.', $imageName);
   $imageAct_ext = strtolower(end($image_ext));
-
   $allowed_ext = array('jpg', 'jpeg', 'png');
 
-  if (in_array($imageAct_ext, $allowed_ext)) {
-    if ($error === 0) {
-      if ($imageSize < 500000) {
-        $imageNew_name = $Child_familyname . "_" . $Child_name . "." . $imageAct_ext;
-        $folder = '../../images/Baptismal/' . $imageNew_name;
-        move_uploaded_file($imageTmp, $folder);
+  $query = "SELECT COUNT(*) AS count FROM baptismal WHERE Book_number = '$Book_number' AND Book_page = '$Book_page' AND Book_line = '$Book_line'";
+  $result = mysqli_query($con, $query);
+  $data = mysqli_fetch_assoc($result);
 
-        $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, live_birth_image, legitimity) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$imageNew_name', '$legitimity')";
-        $result = mysqli_query($con, $sql);
-        if ($result) {
-          echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: absolute; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
-          <p style=\"text-align: center;\">Data Added Successfully! <br> Identification Number: <span style=\"border-bottom: 1px solid #000; padding: 0 10px;\"> $random_number</span></p>
-          <button class=\"btn btn-primary\" style=\"padding: 1.5% 5%; margin-top: 3%;\"><a style=\"text-decoration: none; color: #fff;\" href=\"baptismal.php\">Proceed</a></button>
-        </div>";
+  if ($data['count'] != 0) {
+    //   echo '<div id=\"data_exist\" class="d-flex flex-column align-items-center" style="position: absolute; padding: 3% 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%); position:fixed;">
+    //   <p style="text-align: center;">Data Already Exist!</p>
+    //   <button id="okay" class="btn btn-danger" style="padding: 1.5% 5%; margin-top: 3%;">OKAY</button>
+    // </div>';
+    echo '<script>alert("Data Already Exist!"); </script>';
+  } else {
+    if (in_array($imageAct_ext, $allowed_ext)) {
+      if ($error === 0) {
+        if ($imageSize < 500000) {
+          $imageNew_name = $Child_familyname . "_" . $Child_name . "." . $imageAct_ext;
+          $folder = '../../images/Baptismal/' . $imageNew_name;
+          move_uploaded_file($imageTmp, $folder);
+
+          $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, live_birth_image, legitimity) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$imageNew_name', '$legitimity')";
+          $result = mysqli_query($con, $sql);
+          if ($result) {
+            echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: absolute; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
+              <p style=\"text-align: center;\">Data Added Successfully! <br> Identification Number: <span style=\"border-bottom: 1px solid #000; padding: 0 10px;\"> $random_number</span></p>
+              <button class=\"btn btn-primary\" style=\"padding: 1.5% 5%; margin-top: 3%;\"><a style=\"text-decoration: none; color: #fff;\" href=\"baptismal.php\">Proceed</a></button>
+            </div>";
+          } else {
+            die(mysqli_error($con));
+          }
         } else {
-          die(mysqli_error($con));
+          echo "<script>alert(\"The File is too Big\")</script>";
         }
       } else {
-        echo "<script>alert(\"The File is too Big\")</script>";
+        echo "<script>alert(\"Error Uploading File\")</script>";
       }
     } else {
-      echo "<script>alert(\"Error Uploading File\")</script>";
+      echo "<script>alert(\"This Type of File is not Acceptable!\") </script>";
     }
-  } else {
-    echo "<script>alert(\"This Type of File is not Acceptable!\") </script>";
   }
 }
 ?>
@@ -216,6 +231,11 @@ if (isset($_POST['submit'])) {
             <label>Line <span>*</span></label>
             <input type="text" class="form-control" name="Book-line" autocomplete="off" required>
           </div>
+          <?php if (isset($showAlert) && $showAlert) : ?>
+            <script>
+              alert("Data Already Exist!");
+            </script>
+          <?php endif; ?>
         </div>
       </div>
       <div style="width: 50%;">
@@ -297,6 +317,11 @@ if (isset($_POST['submit'])) {
     document.getElementById("back").addEventListener('click', function() {
       window.location.href = "baptismal.php"
     })
+    // document.getElementById("okay").addEventListener('click', function() {
+    //   var data = document.getElementById("data_exist");
+    //   data.style.display = "none";
+    //   console.log("asd");
+    // });
   </script>
 </body>
 

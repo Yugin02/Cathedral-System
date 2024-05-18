@@ -7,39 +7,41 @@ $id = $_GET['editid'];
 $sql = "SELECT * from `baptismal` where id=$id";
 $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_assoc($result);
-$Child_name = $row['Child_name'];
-$Child_familyname = $row['Child_familyname'];
-$month = $row['month'];
-$day = $row['day'];
-$year = $row['year'];
-$baptism_month = $row['baptism_month'];
-$baptism_day = $row['baptism_day'];
-$baptism_year = $row['baptism_year'];
-$municipality = $row['parents_residence_municipality'];
-$barangay = $row['parents_residence_barangay'];
-$godmother_municipality = $row['godmother_residence_municipality'];
-$godmother_barangay = $row['godmother_residence_barangay'];
-$godfather_municipality = $row['godfather_residence_municipality'];
-$godfather_barangay = $row['godfather_residence_barangay'];
-$Godfather_name = $row['Godfather_name'];
-$Godfather_familyname = $row['Godfather_familyname'];
-$Godmother_name = $row['Godmother_name'];
-$Godmother_familyname = $row['Godmother_familyname'];
-$Mother_name = $row['Mother_name'];
-$Mother_familyname = $row['Mother_familyname'];
-$Father_name = $row['Father_name'];
-$Father_familyname = $row['Father_familyname'];
-$Father_municipality = $row['father_origin_municipality'];
-$Father_barangay = $row['father_origin_barangay'];
-$Mother_municipality = $row['mother_origin_barangay'];
-$Father_barangay = $row['father_origin_municipality'];
-$minister = $row['minister'];
-$priest = $row['priest'];
-$remarks = $row['remarks'];
-$Book_number = $row['Book_number'];
-$Book_page = $row['Book_page'];
-$Book_line = $row['Book_line'];
-$legitimity = $row['legitimity'];
+$Child_name = ucfirst($row['Child_name']);
+$Child_familyname = ucfirst($row['Child_familyname']);
+$month = ucfirst($row['month']);
+$day = ucfirst($row['day']);
+$year = ucfirst($row['year']);
+$baptism_month = ucfirst($row['baptism_month']);
+$baptism_day = ucfirst($row['baptism_day']);
+$baptism_year = ucfirst($row['baptism_year']);
+$municipality = ucfirst($row['parents_residence_municipality']);
+$barangay = ucfirst($row['parents_residence_barangay']);
+$godmother_municipality = ucfirst($row['godmother_residence_municipality']);
+$godmother_barangay = ucfirst($row['godmother_residence_barangay']);
+$godfather_municipality = ucfirst($row['godfather_residence_municipality']);
+$godfather_barangay = ucfirst($row['godfather_residence_barangay']);
+$Godfather_name = ucfirst($row['Godfather_name']);
+$Godfather_familyname = ucfirst($row['Godfather_familyname']);
+$Godmother_name = ucfirst($row['Godmother_name']);
+$Godmother_familyname = ucfirst($row['Godmother_familyname']);
+$Mother_name = ucfirst($row['Mother_name']);
+$Mother_familyname = ucfirst($row['Mother_familyname']);
+$Father_name = ucfirst($row['Father_name']);
+$Father_familyname = ucfirst($row['Father_familyname']);
+$Father_municipality = ucfirst($row['father_origin_municipality']);
+$Father_barangay = ucfirst($row['father_origin_barangay']);
+$Mother_municipality = ucfirst($row['mother_origin_barangay']);
+$Mother_barangay = ucfirst($row['mother_origin_municipality']);
+$minister = ucfirst($row['minister']);
+$priest = ucfirst($row['priest']);
+$remarks = ucfirst($row['remarks']);
+$Book_number = ucfirst($row['Book_number']);
+$Book_page = ucfirst($row['Book_page']);
+$Book_line = ucfirst($row['Book_line']);
+$legitimity = ucfirst($row['legitimity']);
+
+$folder = '../../images/Baptismal/' . $row['live_birth_image'];
 
 $month1 = date('m', strtotime($month));
 $birth_date = $year . "-" . str_pad($month1, 2, "0", STR_PAD_LEFT) . "-" . str_pad($day, 2, "0", STR_PAD_LEFT);
@@ -194,7 +196,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="mb-3">
           <p>Live Birth <span style="color: red; font-weight:normal">*</span></p>
-          <input type="file" class="form-control" name="live-birth" autocomplete="off" required>
+          <input type="file" class="form-control" id="live_birth" name="live-birth" autocomplete="off" required>
         </div>
         <p>Book</p>
         <div class="d-flex gap-3">
@@ -290,7 +292,10 @@ if (isset($_POST['submit'])) {
   <script>
     document.getElementById("back").addEventListener('click', function() {
       window.location.href = "baptismal.php"
-    })
+    });
+    window.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('live_birth').value = "<?php echo $folder; ?>";
+    });
   </script>
 </body>
 
