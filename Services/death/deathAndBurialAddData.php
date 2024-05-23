@@ -1,6 +1,6 @@
 <?php
-
 include '../connect.php';
+
 $length = 6;
 
 function id_number($length)
