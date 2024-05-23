@@ -15,7 +15,7 @@ function id_number($length)
 
 function check_id_number($con, $randomNumber)
 {
-  $query = "SELECT COUNT(*) AS count FROM death_and_burial WHERE id_number = '$randomNumber'";
+  $query = "SELECT COUNT(*) AS count FROM marriage WHERE id_number = '$randomNumber'";
   $result = mysqli_query($con, $query);
   $data = mysqli_fetch_assoc($result);
   return $data['count'] == 0;
