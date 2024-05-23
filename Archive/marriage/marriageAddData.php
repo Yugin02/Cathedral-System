@@ -1,7 +1,8 @@
 <?php
 include '../connect.php';
+$length = 6;
 
-function id_number($length = 6)
+function id_number($length)
 {
   $characters = '0123456789';
   $randomNumber = '';
@@ -10,18 +11,24 @@ function id_number($length = 6)
   }
   return $randomNumber;
 }
+
 function check_id_number($con, $randomNumber)
 {
-  $query = "SELECT COUNT(*) AS count FROM baptismal WHERE id_number = '$randomNumber'";
+  $query = "SELECT COUNT(*) AS count FROM marriage WHERE id_number = '$randomNumber'";
   $result = mysqli_query($con, $query);
   $data = mysqli_fetch_assoc($result);
   return $data['count'] == 0;
 }
 
+$randomNumber = id_number($length);
+while (!check_id_number($con, $randomNumber)) {
+  $length++;
+  $randomNumber = id_number($length);
+}
 
 if (isset($_POST['submit'])) {
   do {
-    $random_number = id_number();
+    $random_number = id_number($length);
   } while (!check_id_number($con, $random_number));
 
   $husband_birth = new DateTime($_POST['husband-birth']);
@@ -45,52 +52,65 @@ if (isset($_POST['submit'])) {
   $marriage_month = $marriage->format('F');
   $marriage_day = $marriage->format('d');
   $marriage_year = $marriage->format('Y');
-  $wife_name = $_POST['wife-name'];
-  $wife_familyname = $_POST['wife-familyname'];
-  $wife_legal_status = $_POST['wife-legal-status'];
-  $wife_municipality = $_POST['wife-municipality'];
-  $wife_barangay = $_POST['wife-barangay'];
-  $wife_birth_municipality = $_POST['wife-birth-municipality'];
-  $wife_birth_barangay = $_POST['wife-birth-barangay'];
-  $wife_baptism_municipality = $_POST['wife-baptism-municipality'];
-  $wife_baptism_barangay = $_POST['wife-baptism-barangay'];
-  $wife_Mother_name = $_POST['wife-Mother-name'];
-  $wife_Mother_familyname = $_POST['wife-Mother-familyname'];
-  $wife_Father_name = $_POST['wife-Father-name'];
-  $wife_Father_familyname = $_POST['wife-Father-familyname'];
-  $Godmother1_name = $_POST['Godmother1-name'];
-  $Godmother1_familyname = $_POST['Godmother1-familyname'];
-  $Godfather1_name = $_POST['Godfather1-name'];
-  $Godfather1_familyname = $_POST['Godfather1-familyname'];
-  $husband_name = $_POST['husband-name'];
-  $husband_familyname = $_POST['husband-familyname'];
-  $husband_legal_status = $_POST['husband-legal-status'];
-  $husband_municipality = $_POST['husband-municipality'];
-  $husband_barangay = $_POST['husband-barangay'];
-  $husband_birth_municipality = $_POST['husband-birth-municipality'];
-  $husband_birth_barangay = $_POST['husband-birth-barangay'];
-  $husband_baptism_municipality = $_POST['husband-baptism-municipality'];
-  $husband_baptism_barangay = $_POST['husband-baptism-barangay'];
-  $husband_Mother_name = $_POST['husband-Mother-name'];
-  $husband_Mother_familyname = $_POST['husband-Mother-familyname'];
-  $husband_Father_name = $_POST['husband-Father-name'];
-  $husband_Father_familyname = $_POST['wife-Father-familyname'];
-  $Godmother2_name = $_POST['Godmother2-name'];
-  $Godmother2_familyname = $_POST['Godmother2-familyname'];
-  $Godfather2_name = $_POST['Godfather2-name'];
-  $Godfather2_familyname = $_POST['Godfather2-familyname'];
-  $minister = $_POST['minister'];
-  $priest = $_POST['priest'];
-  $Book_number = $_POST['Book-number'];
-  $Book_page = $_POST['Book-page'];
-  $Book_line = $_POST['Book-line'];
+  $wife_name = ucfirst($_POST['wife-name']);
+  $wife_familyname = ucfirst($_POST['wife-familyname']);
+  $wife_legal_status = ucfirst($_POST['wife-legal-status']);
+  $wife_municipality = ucfirst($_POST['wife-municipality']);
+  $wife_barangay = ucfirst($_POST['wife-barangay']);
+  $wife_birth_municipality = ucfirst($_POST['wife-birth-municipality']);
+  $wife_birth_barangay = ucfirst($_POST['wife-birth-barangay']);
+  $wife_baptism_municipality = ucfirst($_POST['wife-baptism-municipality']);
+  $wife_baptism_barangay = ucfirst($_POST['wife-baptism-barangay']);
+  $wife_Mother_name = ucfirst($_POST['wife-Mother-name']);
+  $wife_Mother_familyname = ucfirst($_POST['wife-Mother-familyname']);
+  $wife_Father_name = ucfirst($_POST['wife-Father-name']);
+  $wife_Father_familyname = ucfirst($_POST['wife-Father-familyname']);
+  $Godmother1_name = ucfirst($_POST['Godmother1-name']);
+  $Godmother1_familyname = ucfirst($_POST['Godmother1-familyname']);
+  $Godfather1_name = ucfirst($_POST['Godfather1-name']);
+  $Godfather1_familyname = ucfirst($_POST['Godfather1-familyname']);
+  $husband_name = ucfirst($_POST['husband-name']);
+  $husband_familyname = ucfirst($_POST['husband-familyname']);
+  $husband_legal_status = ucfirst($_POST['husband-legal-status']);
+  $husband_municipality = ucfirst($_POST['husband-municipality']);
+  $husband_barangay = ucfirst($_POST['husband-barangay']);
+  $husband_birth_municipality = ucfirst($_POST['husband-birth-municipality']);
+  $husband_birth_barangay = ucfirst($_POST['husband-birth-barangay']);
+  $husband_baptism_municipality = ucfirst($_POST['husband-baptism-municipality']);
+  $husband_baptism_barangay = ucfirst($_POST['husband-baptism-barangay']);
+  $husband_Mother_name = ucfirst($_POST['husband-Mother-name']);
+  $husband_Mother_familyname = ucfirst($_POST['husband-Mother-familyname']);
+  $husband_Father_name = ucfirst($_POST['husband-Father-name']);
+  $husband_Father_familyname = ucfirst($_POST['husband-Father-familyname']);
+  $Godmother2_name = ucfirst($_POST['Godmother2-name']);
+  $Godmother2_familyname = ucfirst($_POST['Godmother2-familyname']);
+  $Godfather2_name = ucfirst($_POST['Godfather2-name']);
+  $Godfather2_familyname = ucfirst($_POST['Godfather2-familyname']);
+  $minister = ucfirst($_POST['minister']);
+  $priest = ucfirst($_POST['priest']);
+  $Book_number = ucfirst($_POST['Book-number']);
+  $Book_page = ucfirst($_POST['Book-page']);
+  $Book_line = ucfirst($_POST['Book-line']);
+  $license_number = ucfirst($_POST['license-number']);
 
-  $sql = "insert into `marriage` (id_number,wife_name, wife_familyname, wife_legal_status, wife_municipality, wife_barangay, wife_month, wife_day, wife_year, wife_birth_municipality, wife_birth_barangay, wife_baptism_month, wife_baptism_day, wife_baptism_year,wife_baptism_municipality, wife_baptism_barangay, husband_name, husband_familyname, husband_legal_status, husband_municipality, husband_barangay, husband_month, husband_day, husband_year, husband_birth_municipality, husband_birth_barangay, husband_baptism_month, husband_baptism_day, husband_baptism_year,husband_baptism_municipality, husband_baptism_barangay, marriage_month, marriage_day, marriage_year, minister,license_number,husband_Father_name, husband_Father_familyname, husband_Mother_name, husband_Mother_familyname, wife_Father_name, wife_Father_familyname, wife_Mother_name, wife_Mother_familyname, Godfather1_name, Godfather1_familyname, Godmother1_name, Godmother1_familyname, Godfather2_name, Godfather2_familyname, Godmother2_name, Godmother2_familyname, priest, Book_number, Book_page, Book_line) values ('$random_number','$wife_name','$wife_familyname', '$wife_legal_status', '$wife_municipality', '$wife_barangay', '$wife_month', '$wife_day', '$wife_year','$wife_birth_municipality', '$wife_birth_barangay', '$wife_baptism_month', '$wife_baptism_day', '$wife_baptism_year','$wife_baptism_municipality', '$wife_baptism_barangay','$husband_name','$husband_familyname', '$husband_legal_status', '$husband_municipality', '$husband_barangay', '$husband_month', '$husband_day', '$husband_year','$husband_birth_municipality', '$husband_birth_barangay', '$husband_baptism_month', '$husband_baptism_day', '$husband_baptism_year','$husband_baptism_municipality', '$husband_baptism_barangay','$marriage_month', '$marriage_day', '$marriage_year', '$minister','$license_number', '$husband_Father_name', '$husband_Father_familyname', '$husband_Mother_name', '$husband_Mother_familyname', '$wife_Father_name', '$wife_Father_familyname', '$wife_Mother_name', '$wife_Mother_familyname', '$Godfather1_name', '$Godfather1_familyname', '$Godmother1_name', '$Godmother1_familyname', '$Godfather2_name', '$Godfather2_familyname', '$Godmother2_name', '$Godmother2_familyname','$priest', '$Book_number', '$Book_page', '$Book_line')";
-  $result = mysqli_query($con, $sql);
-  if ($result) {
-    header("location: marriage.php");
+  $query = "SELECT COUNT(*) AS count FROM marriage WHERE Book_number = '$Book_number' AND Book_page = '$Book_page' AND Book_line = '$Book_line'";
+  $result = mysqli_query($con, $query);
+  $data = mysqli_fetch_assoc($result);
+
+  if ($data['count'] != 0) {
+    //   echo '<div id=\"data_exist\" class="d-flex flex-column align-items-center" style="position: absolute; padding: 3% 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%); position:fixed;">
+    //   <p style="text-align: center;">Data Already Exist!</p>
+    //   <button id="okay" class="btn btn-danger" style="padding: 1.5% 5%; margin-top: 3%;">OKAY</button>
+    // </div>';
+    echo '<script>alert("Data Already Exist!"); </script>';
   } else {
-    die(mysqli_error($con));
+    $sql = "insert into `marriage` (id_number,wife_name, wife_familyname, wife_legal_status, wife_municipality, wife_barangay, wife_month, wife_day, wife_year, wife_birth_municipality, wife_birth_barangay, wife_baptism_month, wife_baptism_day, wife_baptism_year,wife_baptism_municipality, wife_baptism_barangay, husband_name, husband_familyname, husband_legal_status, husband_municipality, husband_barangay, husband_month, husband_day, husband_year, husband_birth_municipality, husband_birth_barangay, husband_baptism_month, husband_baptism_day, husband_baptism_year,husband_baptism_municipality, husband_baptism_barangay, marriage_month, marriage_day, marriage_year, minister,license_number,husband_Father_name, husband_Father_familyname, husband_Mother_name, husband_Mother_familyname, wife_Father_name, wife_Father_familyname, wife_Mother_name, wife_Mother_familyname, Godfather1_name, Godfather1_familyname, Godmother1_name, Godmother1_familyname, Godfather2_name, Godfather2_familyname, Godmother2_name, Godmother2_familyname, priest, Book_number, Book_page, Book_line) values ('$random_number','$wife_name','$wife_familyname', '$wife_legal_status', '$wife_municipality', '$wife_barangay', '$wife_month', '$wife_day', '$wife_year','$wife_birth_municipality', '$wife_birth_barangay', '$wife_baptism_month', '$wife_baptism_day', '$wife_baptism_year','$wife_baptism_municipality', '$wife_baptism_barangay','$husband_name','$husband_familyname', '$husband_legal_status', '$husband_municipality', '$husband_barangay', '$husband_month', '$husband_day', '$husband_year','$husband_birth_municipality', '$husband_birth_barangay', '$husband_baptism_month', '$husband_baptism_day', '$husband_baptism_year','$husband_baptism_municipality', '$husband_baptism_barangay','$marriage_month', '$marriage_day', '$marriage_year', '$minister','$license_number', '$husband_Father_name', '$husband_Father_familyname', '$husband_Mother_name', '$husband_Mother_familyname', '$wife_Father_name', '$wife_Father_familyname', '$wife_Mother_name', '$wife_Mother_familyname', '$Godfather1_name', '$Godfather1_familyname', '$Godmother1_name', '$Godmother1_familyname', '$Godfather2_name', '$Godfather2_familyname', '$Godmother2_name', '$Godmother2_familyname','$priest', '$Book_number', '$Book_page', '$Book_line')";
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+      header("location: marriage.php");
+    } else {
+      die(mysqli_error($con));
+    }
   }
 }
 ?>
