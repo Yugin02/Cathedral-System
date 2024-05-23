@@ -2,7 +2,6 @@
 include '../connect.php';
 
 $length = 6;
-
 function id_number($length)
 {
   $characters = '0123456789';

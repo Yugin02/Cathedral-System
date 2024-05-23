@@ -1,7 +1,8 @@
 <?php
 include '../connect.php';
 
-function id_number($length = 6)
+$length = 6;
+function id_number($length)
 {
   $characters = '0123456789';
   $randomNumber = '';
@@ -10,18 +11,25 @@ function id_number($length = 6)
   }
   return $randomNumber;
 }
+
 function check_id_number($con, $randomNumber)
 {
-  $query = "SELECT COUNT(*) AS count FROM baptismal WHERE id_number = '$randomNumber'";
+  $query = "SELECT COUNT(*) AS count FROM death_and_burial WHERE id_number = '$randomNumber'";
   $result = mysqli_query($con, $query);
   $data = mysqli_fetch_assoc($result);
   return $data['count'] == 0;
 }
 
+$randomNumber = id_number($length);
+while (!check_id_number($con, $randomNumber)) {
+  $length++;
+  $randomNumber = id_number($length);
+}
+
 
 if (isset($_POST['submit'])) {
   do {
-    $random_number = id_number();
+    $random_number = id_number($length);
   } while (!check_id_number($con, $random_number));
 
   $burial = new DateTime($_POST['burial']);
@@ -32,28 +40,40 @@ if (isset($_POST['submit'])) {
   $burial_month = $burial->format('F');
   $burial_day = $burial->format('d');
   $burial_year = $burial->format('Y');
-  $deceased_name = $_POST['deceased-name'];
-  $deceased_familyname = $_POST['deceased-familyname'];
-  $age = $_POST['age'];
-  $burial_municipality = $_POST['burial-municipality'];
-  $burial_barangay = $_POST['burial-barangay'];
-  $relative_name = $_POST['relative-name'];
-  $relative_familyname = $_POST['relative-familyname'];
-  $deceased_municipality = $_POST['municipality'];
-  $deceased_barangay = $_POST['barangay'];
-  $sacraments = $_POST['sacraments'];
-  $minister = $_POST['minister'];
-  $priest = $_POST['priest'];
-  $Book_number = $_POST['Book-number'];
-  $Book_page = $_POST['Book-page'];
-  $Book_line = $_POST['Book-line'];
+  $deceased_name = ucfirst($_POST['deceased-name']);
+  $deceased_familyname = ucfirst($_POST['deceased-familyname']);
+  $age = ucfirst($_POST['age']);
+  $burial_municipality = ucfirst($_POST['burial-municipality']);
+  $burial_barangay = ucfirst($_POST['burial-barangay']);
+  $relative_name = ucfirst($_POST['relative-name']);
+  $relative_familyname = ucfirst($_POST['relative-familyname']);
+  $deceased_municipality = ucfirst($_POST['municipality']);
+  $deceased_barangay = ucfirst($_POST['barangay']);
+  $sacraments = ucfirst($_POST['sacraments']);
+  $minister = ucfirst($_POST['minister']);
+  $priest = ucfirst($_POST['priest']);
+  $Book_number = ucfirst($_POST['Book-number']);
+  $Book_page = ucfirst($_POST['Book-page']);
+  $Book_line = ucfirst($_POST['Book-line']);
 
-  $sql = "insert into `death_and_burial` (id_number, deceased_name, deceased_familyname, age, death_month, death_day, death_year, burial_month, burial_day, burial_year, relative_name, relative_familyname, deceased_municipality, deceased_barangay, minister, burial_municipality, burial_barangay, sacraments, priest, Book_number, Book_page, Book_line) values ('$random_number','$deceased_name','$deceased_familyname', '$age', '$death_month', '$death_day', '$death_year', '$burial_month', '$burial_day', '$burial_year', '$relative_name', '$relative_familyname', '$deceased_municipality', '$deceased_barangay', '$minister','$burial_municipality', '$burial_barangay', '$sacraments' ,'$priest', '$Book_number', '$Book_page', '$Book_line')";
-  $result = mysqli_query($con, $sql);
-  if ($result) {
-    header("location: deathAndBurial.php");
+  $query = "SELECT COUNT(*) AS count FROM death_and_burial WHERE Book_number = '$Book_number' AND Book_page = '$Book_page' AND Book_line = '$Book_line'";
+  $result = mysqli_query($con, $query);
+  $data = mysqli_fetch_assoc($result);
+
+  if ($data['count'] != 0) {
+    //   echo '<div id=\"data_exist\" class="d-flex flex-column align-items-center" style="position: absolute; padding: 3% 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%); position:fixed;">
+    //   <p style="text-align: center;">Data Already Exist!</p>
+    //   <button id="okay" class="btn btn-danger" style="padding: 1.5% 5%; margin-top: 3%;">OKAY</button>
+    // </div>';
+    echo '<script>alert("Data Already Exist!"); </script>';
   } else {
-    die(mysqli_error($con));
+    $sql = "insert into `death_and_burial` (id_number, deceased_name, deceased_familyname, age, death_month, death_day, death_year, burial_month, burial_day, burial_year, relative_name, relative_familyname, deceased_municipality, deceased_barangay, minister, burial_municipality, burial_barangay, sacraments, priest, Book_number, Book_page, Book_line) values ('$random_number','$deceased_name','$deceased_familyname', '$age', '$death_month', '$death_day', '$death_year', '$burial_month', '$burial_day', '$burial_year', '$relative_name', '$relative_familyname', '$deceased_municipality', '$deceased_barangay', '$minister','$burial_municipality', '$burial_barangay', '$sacraments' ,'$priest', '$Book_number', '$Book_page', '$Book_line')";
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+      header("location: deathAndBurial.php");
+    } else {
+      die(mysqli_error($con));
+    }
   }
 }
 ?>
