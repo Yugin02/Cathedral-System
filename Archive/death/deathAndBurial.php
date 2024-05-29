@@ -16,6 +16,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $value -= 1;
   }
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
+  $deceased_name = $_POST['deceasedName'];
+  $deceased_familyname = $_POST['deceasedFamilyName'];
+  $imageName = $_FILES['file']['name'];
+  $imageTmp = $_FILES['file']['tmp_name'];
+  $imageSize = $_FILES['file']['size'];
+  $error = $_FILES['file']['error'];
+  $imageType = $_FILES['file']['type'];
+  $image_ext = explode('.', $imageName);
+  $imageAct_ext = strtolower(end($image_ext));
+  $allowed_ext = array('jpg', 'jpeg', 'png');
+
+  if (in_array($imageAct_ext, $allowed_ext)) {
+    if ($error === 0) {
+      if ($imageSize < 500000) {
+
+        $imageNew_name = $deceased_familyname . "_" . $deceased_name . "." . $imageAct_ext;
+        $folder = '../../images/Death and Burial/' . $imageNew_name;
+        if (file_exists($folder)) {
+          unlink($folder);
+        }
+        if (move_uploaded_file($imageTmp, $folder)) {
+          $sql = "update `death_and_burial` set death_cert_images = '$imageNew_name' where deceased_name = '$deceased_name'";
+          if (mysqli_query($con, $sql)) {
+            echo "<script>alert('Image Updated!');</script>";
+          } else {
+            echo "<script>alert('Error Uploading File!');</script>";
+          }
+        }
+      } else {
+        echo "<script>alert(\"The File is too Big\")</script>";
+      }
+    } else {
+      echo "<script>alert(\"Error Uploading File\")</script>";
+    }
+  } else {
+    echo "<script>alert(\"This Type of File is not Acceptable!\") </script>";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -377,16 +417,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
     echo
     "<div id=\"live_birth_img\" class=\"d-flex flex-column justify-content-between gap-2\">
-    <div class=\"d-flex justify-content-between\">
-    <div style= \"cursor:pointer;\" id=\"full_screen\">
-      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-fullscreen\" viewBox=\"0 0 16 16\">
-        <path d=\"M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5\"/>
-      </svg>
-    </div>
-    <svg style= \"cursor:pointer;\" id=\"close_image\" xmlns=\"http://www.w3.org/2000/svg\" width=\"25\" height=\"25\" fill=\"currentColor\" class=\"bi bi-x-circle\" viewBox=\"0 0 16 16\">
-      <path d=\"M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16\" />
-      <path d=\"M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708\" />
-    </svg>
+    <div class=\"d-flex justify-content-between px-3\">
+        <svg style= \"cursor:pointer;\" id=\"close_image\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" fill=\"currentColor\" class=\"bi bi-x-circle\" viewBox=\"0 0 16 16\">
+          <path d=\"M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16\" />
+          <path d=\"M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708\" />
+        </svg>
+      <div class=\"d-flex flex-column align-items-end gap-3\" style= \"cursor:pointer;\">
+        <svg id=\"imageMenu\" xmlns=\"http://www.w3.org/2000/svg\" width=\"25\" height=\"25\" fill=\"currentColor\" class=\"bi bi-three-dots-vertical\" viewBox=\"0 0 16 16\">
+          <path d=\"M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0\"/>
+        </svg>
+        <div id=\"imageButton\" class=\"d-flex flex-column gap-1 align-items-start\">
+          <button id=\"full_screen\">Max Screen</button>
+          <form id=\"uploadForm\" action=\"deathAndBurial.php\" method=\"POST\" enctype=\"multipart/form-data\">
+              <input type=\"hidden\" name=\"deceasedName\" value=\"$deceased_name\" />
+              <input type=\"hidden\" name=\"deceasedFamilyName\" value=\"$deceased_familyname\" />
+              <input type=\"file\" id=\"fileInput\" name=\"file\" />
+              <button type=\"submit\" style=\"display: none;\">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
     <div class=\"d-flex justify-content-center\" style=\"height: 90%; width:95%; align-self:center;\">
       <img style=\"width:100%; object-fit:contain; object-position:center\" src=\"../../images/Death and Burial/$death_cert_name\">
@@ -410,24 +459,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
     ";
     echo '<script>
-    var min_max_screen = document.getElementById("full_screen");
-    min_max_screen.addEventListener("click", function(){
-      var min_screen = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-fullscreen-exit" viewBox="0 0 16 16">
-        <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z"/>
-      </svg>`;
-      var full_screen = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-fullscreen" viewBox="0 0 16 16">
-        <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5"/>
-      </svg>`;  
-      if (image.style.width === "45%") {
-        image.style.width = "100%";
-        image.style.height = "100%";
-        min_max_screen.innerHTML = min_screen;
+    var imageButton = document.getElementById("imageButton");
+    document.getElementById("imageMenu").addEventListener("click", function(){
+      if (imageButton.style.display === "") {
+        imageButton.setAttribute("style", `display: none !important;`);
+      }
+      if (imageButton.style.display === "none") {
+        imageButton.setAttribute("style", `display: flex !important;`);
       } else {
+        imageButton.setAttribute("style", `display: none !important;`);
+      }
+    })
+    document.getElementById("full_screen").addEventListener("click", function(){
+      var fullScreen = document.getElementById("full_screen");
+      if (!image.style.width) {
         image.style.width = "45%";
         image.style.height = "90%";
-        min_max_screen.innerHTML = full_screen;
+      }
+      
+      if (image.style.width == "45%") {
+          image.style.width = "100%";
+          image.style.height = "100%";
+          imageButton.setAttribute("style", `display: none !important;`);
+          fullScreen.innerText = "Min Screen";
+      } else {
+          image.style.width = "45%";
+          image.style.height = "90%";
+          imageButton.setAttribute("style", `display: none !important;`);
+          fullScreen.innerText = "Max Screen";
       }
     });
+    document.getElementById("fileInput").addEventListener("change", function () {
+      var form = document.getElementById("uploadForm");
+      if (this.files.length > 0) {
+        form.submit();
+      }
+    });   
     </script>';
   } else {
   }
