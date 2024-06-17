@@ -239,14 +239,6 @@ if (isset($_POST['submit'])) {
             <input type="text" class="form-control" name="wife-baptism-barangay" autocomplete="off" required value="<?php echo $wife_baptism_barangay ?>">
           </div>
         </div>
-        <div class="mb-3">
-          <p>Baptismal Certificate <span style="color: red; font-weight:normal">*</span></p>
-          <input type="file" class="form-control" name="wife-baptismal" autocomplete="off" required>
-        </div>
-        <div class="mb-3">
-          <p>Confirmation Certificate <span style="color: red; font-weight:normal">*</span></p>
-          <input type="file" class="form-control" name="wife-confirmation" autocomplete="off" required>
-        </div>
         <p>Mother</p>
         <div>
           <div class="mb-3">
@@ -294,38 +286,6 @@ if (isset($_POST['submit'])) {
         <div class="mb-3" style="flex: 1;">
           <p>Date of Marriage <span style="color: red; font-weight:normal">*</span></p>
           <input type="date" class="form-control" name="marriage-date" autocomplete="off" required value="<?php echo $marriage_date ?>">
-        </div>
-        <p>Marriage Certificate</p>
-        <div>
-          <div class="d-flex justify-content-start gap-4 mb-3">
-            <div class="form-check">
-              <input style="border: 1px solid #000;" class="form-check-input" type="radio" name="flexRadioDefault" value="married" id="married" onchange="toggleSelect(this)">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Married
-              </label>
-            </div>
-            <div class="form-check">
-              <input style="border: 1px solid #000;" class="form-check-input" type="radio" name="flexRadioDefault" value="cohabitant" id="cohabitant" onchange="toggleSelect(this)">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Cohabitant
-              </label>
-            </div>
-          </div>
-          <div class="mb-3">
-            <select id="married-selected" style="border: 1px solid #000; border-radius:0; display:none;" class="form-select" name="married" required>
-              <option>Marriage Contract or Marriage License</option>
-              <option>Civil Marriage Contract</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <select id="cohabitant-selected" style="border: 1px solid #000; border-radius:0; display:none;" class="form-select" name="cohabitant" required>
-              <option>Affidavit of Cohabitation (5 years or more)</option>
-              <option>Marriage License (less than 5 years)</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <input id="file" style="display: none;" type="file" class="form-control" name="marriage-cert" autocomplete="off" required>
-          </div>
         </div>
         <p>Book</p>
         <div class="d-flex gap-3">
@@ -406,14 +366,6 @@ if (isset($_POST['submit'])) {
             <label>Barangay <span>*</span></label>
             <input type="text" class="form-control" name="husband-baptism-barangay" autocomplete="off" required value="<?php echo $husband_baptism_barangay ?>">
           </div>
-        </div>
-        <div class="mb-3">
-          <p>Baptismal Certificate <span style="color: red; font-weight:normal">*</span></p>
-          <input type="file" class="form-control" name="husband-baptismal" autocomplete="off" required>
-        </div>
-        <div class="mb-3">
-          <p>Confirmation Certificate <span style="color: red; font-weight:normal">*</span></p>
-          <input type="file" class="form-control" name="husband-confirmation" autocomplete="off" required>
         </div>
         <p>Mother</p>
         <div>

@@ -178,10 +178,6 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Death Certificate <span style="color: red; font-weight:normal">*</span></p>
-          <input type="file" class="form-control" name="death-cert" autocomplete="off" required value="<?php echo $death_date ?>">
-        </div>
-        <div class="mb-3">
           <p>Officiating Minister <span style="color: red; font-weight:normal">*</span></p>
           <div class="d-flex align-items-end gap-3">
             <input type="text" class="form-control" name="minister" autocomplete="off" required value="<?php echo $minister ?>">

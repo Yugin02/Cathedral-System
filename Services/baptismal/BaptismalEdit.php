@@ -194,10 +194,6 @@ if (isset($_POST['submit'])) {
             <input type="text" class="form-control" name="Godmother-residence-barangay" autocomplete="off" required value="<?php echo $godmother_barangay ?>">
           </div>
         </div>
-        <div class="mb-3">
-          <p>Live Birth <span style="color: red; font-weight:normal">*</span></p>
-          <input type="file" class="form-control" id="live_birth" name="live-birth" autocomplete="off" required>
-        </div>
         <p>Book</p>
         <div class="d-flex gap-3">
           <div class="mb-3">
