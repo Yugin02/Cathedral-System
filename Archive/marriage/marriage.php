@@ -20,40 +20,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
   $imageName1 = $_POST['imageName'];
   $id_number = $_POST['id_number'];
   $columnName = $_POST['columnName'];
+
+  $lastDotPos = strrpos($imageName1, '.');
+  if ($lastDotPos !== false) {
+    $imageName1_no_ext = substr($imageName1, 0, $lastDotPos);
+  } else {
+    $imageName1_no_ext = $imageName1; // No dot found, use the whole name
+  }
+
   $imageName = $_FILES['file']['name'];
   $imageTmp = $_FILES['file']['tmp_name'];
   $imageSize = $_FILES['file']['size'];
   $error = $_FILES['file']['error'];
-  $imageType = $_FILES['file']['type'];
+
   $image_ext = explode('.', $imageName);
   $imageAct_ext = strtolower(end($image_ext));
+
   $allowed_ext = array('jpg', 'jpeg', 'png');
 
-  if (in_array($imageAct_ext, $allowed_ext)) {
-    if ($error === 0) {
-      if ($imageSize < 500000) {
+  if ($error === 0) {
+    if (in_array($imageAct_ext, $allowed_ext)) {
+      $uploadDir = '../../images/Marriage/' . $id_number . '/';
 
-        $imageNew_name = $imageName1;
-        $folder = '../../images/Marriage/' . $id_number . '/' . $imageNew_name;
-        if (file_exists($folder)) {
-          unlink($folder);
+      if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+      }
+
+      $targetFilePath = $uploadDir . $imageName1_no_ext . '.' . $imageAct_ext;
+
+      foreach ($allowed_ext as $ext) {
+        $existingFile = $uploadDir . $imageName1_no_ext . '.' . $ext;
+        if (file_exists($existingFile) && $ext != $imageAct_ext) {
+          unlink($existingFile);
         }
-        if (move_uploaded_file($imageTmp, $folder)) {
-          $sql = "update `marriage` set $columnName = '$imageNew_name' where id_number = '$id_number'";
-          if (mysqli_query($con, $sql)) {
-            echo "<script>alert('Image Updated!');</>";
-          } else {
-            echo "<script>alert('Error Uploading File!');</script>";
-          }
+      }
+      if (move_uploaded_file($imageTmp, $targetFilePath)) {
+        $sql = "UPDATE `marriage` SET $columnName = '$imageName1_no_ext.$imageAct_ext' WHERE id_number = '$id_number'";
+        if ($con->query($sql) === TRUE) {
+          echo "<script>alert(\"File uploaded successfully.\")</script>";
+        } else {
+          echo "<script>alert(\"Error updating record: \"$con->error\")</script>";
         }
       } else {
-        echo "<script>alert(\"The File is too Big\")</script>";
+        echo "<script>alert(\"There was an error uploading the file.\")</script>";
       }
     } else {
-      echo "<script>alert(\"Error Uploading File\")</script>";
+      echo "<script>alert(\"File type not allowed. Only JPG, JPEG, and PNG files are allowed.\")</script>";
     }
   } else {
-    echo "<script>alert(\"This Type of File is not Acceptable!\") </script>";
+    echo "<script>alert(\"There was an error with the file upload.\")</script>";
   }
 }
 ?>
@@ -616,47 +631,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
         </tr>
         <tr>
           <td style = \" padding:10px;\">$files[3]</td>
-          <td onclick=\"window.location='marriage.php?files=$files[3] & Mid=$marriage_id';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
+          <td onclick=\"window.location='marriage.php?files=$files[3] & Mid=$marriage_id & imageId=2';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
           <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\"/>
           <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\"/>
         </svg></td>
         </tr>
         <tr>
           <td style = \" padding:10px;\">$files[4]</td>
-          <td onclick=\"window.location='marriage.php?files=$files[4] & Mid=$marriage_id';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
+          <td onclick=\"window.location='marriage.php?files=$files[4] & Mid=$marriage_id & imageId=3';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
           <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\"/>
           <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\"/>
         </svg></td>
         </tr>
         <tr>
           <td style = \" padding:10px;\">$files[5]</td>
-          <td onclick=\"window.location='marriage.php?files=$files[5] & Mid=$marriage_id';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
+          <td onclick=\"window.location='marriage.php?files=$files[5] & Mid=$marriage_id & imageId=4';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
           <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\"/>
           <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\"/>
         </svg></td>
         </tr>
         <tr>
           <td style = \" padding:10px;\">$files[6]</td>
-          <td onclick=\"window.location='marriage.php?files=$files[6] & Mid=$marriage_id';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
+          <td onclick=\"window.location='marriage.php?files=$files[6] & Mid=$marriage_id & imageId=5';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
           <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\"/>
           <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\"/>
         </svg></td>
         </tr>
         ";
-      // } else {
-      //   foreach ($nonSpecialFiles as $file) {
-      //     echo "
-      //         <tr>
-      //             <td style=\"padding:10px;\">$file</td>
-      //             <td onclick=\"window.location='marriage.php?filename=$file';\" style=\"padding:10px; cursor:pointer;\">
-      //                 <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
-      //                     <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\" />
-      //                     <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\" />
-      //                 </svg>
-      //             </td>
-      //         </tr>";
-      //   }
-      // }
       ?>
     </tbody>
     </table>
@@ -687,12 +688,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
       $columnName = "wife_baptismal_image";
     } elseif ($image_id == "2") {
       $columnName = "husband_baptismal_image";
-    } elseif ($image_id == "3") {
+    } elseif ($image_id == "5") {
       $columnName = "wife_confirmation_image";
     } elseif ($image_id == "4") {
       $columnName = "husband_confirmation_image";
-    } elseif ($image_id == "5") {
-      $columnName = "wife_confirmation_image";
+    } elseif ($image_id == "3") {
+      $columnName = "marriage_cert_image";
     }
 
     echo
@@ -722,49 +723,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
       <img style=\"width:100%; object-fit:contain; object-position:center\" src=\"../../images/Marriage/$id_number/$imageFileName\">
     </div>
   </div>";
-
-
-    // $file_name = $_GET["filename"];
-    // $sql1 = "SELECT * from `marriage` where wife_baptismal_image='$file_name'
-    //         or wife_confirmation_image='$file_name'
-    //         or husband_baptismal_image='$file_name'
-    //         or husband_confirmation_image='$file_name'
-    //         or marriage_cert_image='$file_name'";
-    // $result1 = mysqli_query($con, $sql1);
-    // $row1 = mysqli_fetch_assoc($result1);
-    // $id_number = $row1['id_number'];
-    // $table = "marriage";
-    // $fileName = $file_name;
-
-
-
-    //   echo
-    //   "<div id=\"marriage_image\" class=\"d-flex flex-column justify-content-between gap-2\">
-    //     <div class=\"d-flex justify-content-between\">
-    //     <svg style= \"cursor:pointer;\" id=\"close_image\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" fill=\"currentColor\" class=\"bi bi-x-circle\" viewBox=\"0 0 16 16\">
-    //     <path d=\"M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16\" />
-    //     <path d=\"M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708\" />
-    //   </svg>
-    // <div class=\"d-flex flex-column align-items-end gap-3\" style= \"cursor:pointer;\">
-    //   <svg id=\"imageMenu\" xmlns=\"http://www.w3.org/2000/svg\" width=\"25\" height=\"25\" fill=\"currentColor\" class=\"bi bi-three-dots-vertical\" viewBox=\"0 0 16 16\">
-    //     <path d=\"M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0\"/>
-    //   </svg>
-    //   <div id=\"imageButton\" class=\"d-flex flex-column gap-1 align-items-start\">
-    //     <button id=\"full_screen\">Max Screen</button>
-    //     <form id=\"uploadForm\" action=\"marriage.php\" method=\"POST\" enctype=\"multipart/form-data\">
-    //         <input type=\"hidden\" name=\"fileName\" value=\"$file_name\" />
-    //         <input type=\"hidden\" name=\"id_number\" value=\"$id_number\" />
-    //         <input type=\"hidden\" name=\"columnName\" value=\"$columnName\" />
-    //         <input type=\"file\" id=\"fileInput\" name=\"file\" />
-    //         <button type=\"submit\" style=\"display: none;\">Submit</button>
-    //     </form>
-    //   </div>
-    // </div>
-    //     </div>
-    //   <div class=\"d-flex justify-content-center\" style=\"height: 90%; width:95%; align-self:center;\">
-    //     <img style=\"width:100%; object-fit:contain; object-position:center\" src=\"../../images/Marriage/$id_number/$file_name\">
-    //   </div>
-    // </div>";
     echo "<script>
       document.getElementById(\"close_image\").addEventListener(\"click\", function() {
         window.location.href = \"marriage.php\";
@@ -901,9 +859,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
                     </clipPath>
                   </defs>
                 </svg></a>
-
-
-
             </div>
           </div>
         </div>
