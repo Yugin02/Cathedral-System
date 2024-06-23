@@ -152,32 +152,30 @@ if (isset($_POST['submit'])) {
           $folderPath = '../../images/Marriage/' . $random_number . '/';
           mkdir($folderPath, 0777, true);
 
-
-          $wife_baptismal_imageNew_name = "Baptismal_" . $wife_familyname . "_" . $wife_name . "." . $wifeBaptismal['ext'];
+          $wife_baptismal_imageNew_name = "Wife_Baptismal_" . $wife_familyname . "_" . $wife_name . "." . $wifeBaptismal['ext'];
           $wife_baptismal_folder = $folderPath . $wife_baptismal_imageNew_name;
           move_uploaded_file($wifeBaptismal['tmp_name'], $wife_baptismal_folder);
 
-          $wife_confirmation_imageNew_name = "Confirmation_" . $wife_familyname . "_" . $wife_name . "." . $wifeConfirmation['ext'];
+          $wife_confirmation_imageNew_name = "Wife_Confirmation_" . $wife_familyname . "_" . $wife_name . "." . $wifeConfirmation['ext'];
           $wife_confirmation_folder = $folderPath . $wife_confirmation_imageNew_name;
           move_uploaded_file($wifeConfirmation['tmp_name'], $wife_confirmation_folder);
 
-          $husband_baptismal_imageNew_name = "Baptismal_" . $husband_familyname . "_" . $husband_name . "." . $husbandBaptismal['ext'];
+          $husband_baptismal_imageNew_name = "Husband_Baptismal_" . $husband_familyname . "_" . $husband_name . "." . $husbandBaptismal['ext'];
           $husband_baptismal_folder = $folderPath . $husband_baptismal_imageNew_name;
           move_uploaded_file($husbandBaptismal['tmp_name'], $husband_baptismal_folder);
 
-          $husband_confirmation_imageNew_name = "Confirmation_" . $husband_familyname . "_" . $husband_name . "." . $husbandConfirmation['ext'];
+          $husband_confirmation_imageNew_name = "Husband_Confirmation_" . $husband_familyname . "_" . $husband_name . "." . $husbandConfirmation['ext'];
           $husband_confirmation_folder = $folderPath . $husband_confirmation_imageNew_name;
           move_uploaded_file($husbandConfirmation['tmp_name'], $husband_confirmation_folder);
 
-          $marriage_certificate_imageNew_name = "Mr.&Mrs." . $wife_familyname . "_" . $wife_name . "." . $marriageCert['ext'];
+          $marriage_certificate_imageNew_name = "Mr_And_Mrs_" . $wife_familyname . "_" . $wife_name . "." . $marriageCert['ext'];
           $marriage_certificate_folder = $folderPath . $marriage_certificate_imageNew_name;
           move_uploaded_file($marriageCert['tmp_name'], $marriage_certificate_folder);
-
 
           $sql = "insert into `marriage` (id_number, wife_name, wife_familyname, wife_legal_status, wife_municipality, wife_barangay, wife_month, wife_day, wife_year, wife_birth_municipality, wife_birth_barangay, wife_baptism_month, wife_baptism_day, wife_baptism_year,wife_baptism_municipality, wife_baptism_barangay, husband_name, husband_familyname, husband_legal_status, husband_municipality, husband_barangay, husband_month, husband_day, husband_year, husband_birth_municipality, husband_birth_barangay, husband_baptism_month, husband_baptism_day, husband_baptism_year,husband_baptism_municipality, husband_baptism_barangay, marriage_month, marriage_day, marriage_year, minister,license_number,husband_Father_name, husband_Father_familyname, husband_Mother_name, husband_Mother_familyname, wife_Father_name, wife_Father_familyname, wife_Mother_name, wife_Mother_familyname, Godfather1_name, Godfather1_familyname, Godmother1_name, Godmother1_familyname, Godfather2_name, Godfather2_familyname, Godmother2_name, Godmother2_familyname, priest, Book_number, Book_page, Book_line, wife_baptismal_image, wife_confirmation_image, husband_baptismal_image, husband_confirmation_image, marriage_cert_image) values ('$random_number', '$wife_name','$wife_familyname', '$wife_legal_status', '$wife_municipality', '$wife_barangay', '$wife_month', '$wife_day', '$wife_year','$wife_birth_municipality', '$wife_birth_barangay', '$wife_baptism_month', '$wife_baptism_day', '$wife_baptism_year','$wife_baptism_municipality', '$wife_baptism_barangay','$husband_name','$husband_familyname', '$husband_legal_status', '$husband_municipality', '$husband_barangay', '$husband_month', '$husband_day', '$husband_year','$husband_birth_municipality', '$husband_birth_barangay', '$husband_baptism_month', '$husband_baptism_day', '$husband_baptism_year','$husband_baptism_municipality', '$husband_baptism_barangay','$marriage_month', '$marriage_day', '$marriage_year', '$minister','$license_number', '$husband_Father_name', '$husband_Father_familyname', '$husband_Mother_name', '$husband_Mother_familyname', '$wife_Father_name', '$wife_Father_familyname', '$wife_Mother_name', '$wife_Mother_familyname', '$Godfather1_name', '$Godfather1_familyname', '$Godmother1_name', '$Godmother1_familyname', '$Godfather2_name', '$Godfather2_familyname', '$Godmother2_name', '$Godmother2_familyname','$priest', '$Book_number', '$Book_page', '$Book_line', '$wife_baptismal_imageNew_name', '$wife_confirmation_imageNew_name', '$husband_baptismal_imageNew_name', '$husband_confirmation_imageNew_name', '$marriage_certificate_imageNew_name')";
           $result = mysqli_query($con, $sql);
           if ($result) {
-            echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: fixed; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
+            echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: absolute; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
           <p style=\"text-align: center;\">Data Added Successfully! <br> Identification Number: <span style=\"border-bottom: 1px solid #000; padding: 0 10px;\"> $random_number</span></p>
           <button class=\"btn btn-primary\" style=\"padding: 1.5% 5%; margin-top: 3%;\"><a style=\"text-decoration: none; color: #fff;\" href=\"marriage.php\">Proceed</a></button>
         </div>";

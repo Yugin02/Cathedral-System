@@ -23,7 +23,7 @@ $con->select_db($dbname);
 $sql = "CREATE TABLE IF NOT EXISTS baptismal (
   id INT (100) UNSIGNED
   AUTO_INCREMENT,
-  id_number INT(10),
+  id_number VARCHAR(10),
   Child_name VARCHAR(100),
   Child_familyname VARCHAR(100),
   month VARCHAR(100),
@@ -64,7 +64,7 @@ $con->query($sql);
 $sql = "CREATE TABLE IF NOT EXISTS confirmation (
   id INT (100) UNSIGNED
   AUTO_INCREMENT,
-  id_number INT(10),
+  id_number VARCHAR(10),
   Child_name VARCHAR(100),
   Child_familyname VARCHAR(100),
   confirmed_month VARCHAR(100),
@@ -96,7 +96,7 @@ $con->query($sql);
 $sql = "CREATE TABLE IF NOT EXISTS confirmation (
   id INT (100) UNSIGNED
   AUTO_INCREMENT,
-  id_number INT(10),
+  id_number VARCHAR(10),
   Child_name VARCHAR(100),
   Child_familyname VARCHAR(100),
   confirmed_month VARCHAR(100),
@@ -128,7 +128,7 @@ $con->query($sql);
 $sql = "CREATE TABLE IF NOT EXISTS death_and_burial (
   id INT (100) UNSIGNED
   AUTO_INCREMENT,
-  id_number INT(10),
+  id_number VARCHAR(10),
   deceased_name VARCHAR(100),
   deceased_familyname VARCHAR(100),
   deceased_municipality VARCHAR(100),
@@ -157,7 +157,7 @@ $con->query($sql);
 $sql = "CREATE TABLE IF NOT EXISTS marriage (
   id INT (100) UNSIGNED
   AUTO_INCREMENT,
-  id_number INT(10),
+  id_number VARCHAR(10),
   wife_name VARCHAR(100),
   wife_familyname VARCHAR(100),
   wife_legal_status VARCHAR(100),
@@ -221,6 +221,6 @@ $sql = "CREATE TABLE IF NOT EXISTS marriage (
   wife_confirmation_image VARCHAR(250),
   husband_baptismal_image VARCHAR(250),
   husband_confirmation_image VARCHAR(250),
-  marriage_cert_images VARCHAR(250),
+  marriage_cert_image VARCHAR(250),
   PRIMARY KEY (id) );";
 $con->query($sql);
