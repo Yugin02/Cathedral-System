@@ -1,6 +1,5 @@
 <?php
-
-include '../connect.php';
+include '../../database.php';
 $id = $_GET['editid'];
 
 $sql = "SELECT * from `confirmation` where id=$id";

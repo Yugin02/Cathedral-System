@@ -1,5 +1,5 @@
 <?php
-include '../connect.php';
+include '../../database.php';
 
 $length = 6;
 

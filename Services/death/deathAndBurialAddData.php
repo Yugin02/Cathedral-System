@@ -1,5 +1,5 @@
 <?php
-include '../connect.php';
+include '../../database.php';
 
 $length = 6;
 
@@ -70,10 +70,6 @@ if (isset($_POST['submit'])) {
   $data = mysqli_fetch_assoc($result);
 
   if ($data['count'] != 0) {
-    //   echo '<div id=\"data_exist\" class="d-flex flex-column align-items-center" style="position: absolute; padding: 3% 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%); position:fixed;">
-    //   <p style="text-align: center;">Data Already Exist!</p>
-    //   <button id="okay" class="btn btn-danger" style="padding: 1.5% 5%; margin-top: 3%;">OKAY</button>
-    // </div>';
     echo '<script>alert("Data Already Exist!"); </script>';
   } else {
     if (in_array($imageAct_ext, $allowed_ext)) {
@@ -86,7 +82,7 @@ if (isset($_POST['submit'])) {
           $sql = "insert into `death_and_burial` (id_number, deceased_name, deceased_familyname, age, death_month, death_day, death_year, burial_month, burial_day, burial_year, relative_name, relative_familyname, deceased_municipality, deceased_barangay, minister, burial_municipality, burial_barangay, sacraments, priest, Book_number, Book_page, Book_line, death_cert_images) values ('$random_number', '$deceased_name','$deceased_familyname', '$age', '$death_month', '$death_day', '$death_year', '$burial_month', '$burial_day', '$burial_year', '$relative_name', '$relative_familyname', '$deceased_municipality', '$deceased_barangay', '$minister','$burial_municipality', '$burial_barangay', '$sacraments' ,'$priest', '$Book_number', '$Book_page', '$Book_line', '$imageNew_name')";
           $result = mysqli_query($con, $sql);
           if ($result) {
-            echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: absolute; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
+            echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: fixed; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
           <p style=\"text-align: center;\">Data Added Successfully! <br> Identification Number: <span style=\"border-bottom: 1px solid #000; padding: 0 10px;\"> $random_number</span></p>
           <button class=\"btn btn-primary\" style=\"padding: 1.5% 5%; margin-top: 3%;\"><a style=\"text-decoration: none; color: #fff;\" href=\"deathAndBurial.php\">Proceed</a></button>
         </div>";

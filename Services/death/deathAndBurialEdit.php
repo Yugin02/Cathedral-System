@@ -1,6 +1,5 @@
 <?php
-
-include '../connect.php';
+include '../../database.php';
 $id = $_GET['editid'];
 
 $sql = "select * from `death_and_burial` where id=$id";

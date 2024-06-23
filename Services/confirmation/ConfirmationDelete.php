@@ -1,5 +1,5 @@
 <?php
-include '../connect.php';
+include '../../database.php';
 
 if (isset($_GET['deleteid'])) {
   $id = $_GET['deleteid'];

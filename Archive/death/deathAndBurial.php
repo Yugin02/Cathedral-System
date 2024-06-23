@@ -1,5 +1,5 @@
 <?php
-include '../connect.php';
+include '../../database.php';
 
 session_start();
 if (!isset($_POST['search1']) && !isset($_POST["add"]) && !isset($_POST["subtract"])) {
