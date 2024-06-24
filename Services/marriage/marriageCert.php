@@ -25,6 +25,14 @@ $Book_line = $row['Book_line'];
 $currentMonth = date('F');
 $currentDay = date('j');
 $currentYear = date('Y');
+$Godfather1_name = $row['Godfather1_name'];
+$Godfather1_familyname = $row['Godfather1_familyname'];
+$Godmother1_name = $row['Godmother1_name'];
+$Godmother1_familyname = $row['Godmother1_familyname'];
+$Godmother2_name = $row['Godmother2_name'];
+$Godmother2_familyname = $row['Godmother2_familyname'];
+$Godfather2_name = $row['Godfather2_name'];
+$Godfather2_familyname = $row['Godfather2_familyname'];
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +83,7 @@ $currentYear = date('Y');
       -webkit-text-stroke-color: #000;">
       Certificate of Marriage</h1>
     <div class="align-self-center" style="width: 85%; border: solid 3px #000; font-size:24px; margin-top: -30px; padding: 7% 4%; text-align:start; font-weight:500">
-      <p style="line-height: 50px;">This is to certify that <span><?php echo $groom_name, ', ', $groom_age ?></span> years old, single son of <span><?php echo $groom_father_name ?></span> and <span><?php echo $groom_mother_name ?></span> and <span><?php echo $bride_name, ', ', $bride_age ?></span> years old single, daughter of <span><?php echo $bride_father_name ?></span> and <span><?php echo $bride_mother_name ?></span></p>
+      <p style="line-height: 50px;">This is to certify that <span><?php echo $groom_name, ', ', $groom_age ?></span> years old, single, son of <span><?php echo $groom_father_name ?></span> and <span><?php echo $groom_mother_name ?></span> and <span><?php echo $bride_name, ', ', $bride_age ?></span> years old, single, daughter of <span><?php echo $bride_father_name ?></span> and <span><?php echo $bride_mother_name ?></span></p>
       <p style="color: #000;
         text-align: center;
         font-family: Luxurious Script;
@@ -86,10 +94,10 @@ $currentYear = date('Y');
         letter-spacing: 3.5px;
         margin: 7% 0">
         received the Sacrament of Matrimony <br> according to the rites of the Roman Catholic Church</p>
-      <p>on the <span><?php echo $marriage_day ?></span> day of <span><?php echo $marriage_month ?></span> , <span><?php echo $marriage_year ?></span> before the</p>
-      <p>Fr. <span><?php echo $minister ?></span> at the Cathedral Parish of the Nativity of our Lady, <br> Borongan, Eastern Samar, <br> the witness being; <br> as it appears in the MARRIAGE REGISTER,</p>
+      <p>on <span><?php echo $marriage_month ?> <?php echo $marriage_day ?></span>, <span><?php echo $marriage_year ?></span> before the</p>
+      <p>Rev. <span><?php echo $minister ?></span> at the Cathedral Parish of the Nativity of Our Lady, <br> Borongan City, Eastern Samar, <br> the witnesses being: <span><?php echo $Godfather1_name . " " . $Godfather1_familyname . ", " . $Godmother1_name . " " . $Godmother1_familyname . ", " . $Godfather2_name . " " . $Godfather2_familyname . " and  " . $Godmother2_name . " " . $Godmother2_familyname ?></span><br> as it appears in the MARRIAGE REGISTER,</p>
       <p>Book No: <span><?php echo $Book_number ?></span> Page: <span><?php echo $Book_page ?></span> Line: <span><?php echo $Book_line ?></span></p>
-      <p style="margin-top: 6%;">Given this <span><?php echo $currentDay ?></span> day of <span><?php echo $currentMonth ?></span> <?php echo $currentYear ?> at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
+      <p style="margin-top: 6%;">Given this <span><?php echo $currentMonth ?> <?php echo $currentDay ?></span>, <span><?php echo $currentYear ?></span> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;

@@ -61,20 +61,20 @@ $currentYear = date('Y');
       -webkit-text-stroke-color: #000;">
       Certificate of Confirmation</h1>
     <div class="align-self-center" style="font-weight:500; width: 85%; border: solid 3px #000; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start">
-      <p style="text-align: center; margin-bottom:7%">This is to Certify that</p>
+      <p style="text-align: center; margin-bottom:7%">This is to certify that</p>
       <p style="font-weight: 600;">NAME: <span><?php echo $row['fullname'] ?></span></p>
       <p style="font-weight: 600;">FATHER: <span><?php echo $row['father_name'] ?></span></p>
       <p style="font-weight: 600;">MOTHER: <span><?php echo $row['mother_name'] ?></span></p>
-      <p style="font-weight: 600;">Bapized on: <span><?php echo $row['baptized_date'] ?></span></p>
+      <p style="font-weight: 600;">Date of Baptism: <span><?php echo $row['baptized_date'] ?></span></p>
       <p style="font-weight: 600;">Place of Baptism: <span><?php echo $row['parish_address'] ?></span></p>
       <p style="text-align: center; margin:7% 0; letter-spacing: 2.4px">was solemnly CONFIRMED according to the <br> rites of the Roman Catholic Church </p>
-      <p>on the <span><?php echo $row['confirmed_day'] ?></span> day of <span> <?php echo $row['confirmed_month'] ?></span></p>
-      <p>at the Nativity of our Lady Cathedral Parish Church, <br>Borongan City, Eastern Samar</p>
-      <p>By his excellency <strong style="font-weight: 600;">Most. Rev. Crispin B. Varquez D.D</strong></p>
-      <p>and the sponsor being: <span><?php echo $row['godfather_name'] ?> and <?php echo $row['godmother_name'] ?></span></p>
+      <p>on <span><?php echo $row['confirmed_month'] ?> <?php echo $row['confirmed_day'] ?>, <?php echo $row['confirmed_year'] ?></span></p>
+      <p>at the Nativity of Our Lady Cathedral Parish, <br>Borongan City, Eastern Samar</p>
+      <p>by <span style="font-weight: 600;"><?php echo $row['minister'] ?></span></p>
+      <p>and the sponsors being: <span><?php echo $row['godfather_name'] ?> and <?php echo $row['godmother_name'] ?></span></p>
       <p>as it appears in the CONFIRMATION REGISTER</p>
       <p>Book: <span> <?php echo $row['Book_number'] ?></span> Page: <span> <?php echo $row['Book_page'] ?></span> Line: <span><?php echo $row['Book_line'] ?></span></p>
-      <p style="margin-top: 5%;">Given this <span><?php echo $currentDay ?></span> day of <span><?php echo $currentMonth ?></span> <?php echo $currentYear ?> at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
+      <p style="margin-top: 5%;">Given this <span><?php echo $currentMonth ?> <?php echo $currentDay ?>, <?php echo $currentYear ?></span> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;

@@ -32,11 +32,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
   if (in_array($imageAct_ext, $allowed_ext)) {
     if ($error === 0) {
       if ($imageSize < 500000) {
-
+        $imageName_no_ext = $deceased_familyname . "_" . $deceased_name;
+        $folder1 = '../../images/Death and Burial/' . $imageName_no_ext;
         $imageNew_name = $deceased_familyname . "_" . $deceased_name . "." . $imageAct_ext;
         $folder = '../../images/Death and Burial/' . $imageNew_name;
         if (file_exists($folder)) {
           unlink($folder);
+        }
+        foreach ($allowed_ext as $ext) {
+          $existingFile = $folder1 . '.' . $ext;
+          if (file_exists($existingFile) && $ext != $imageAct_ext) {
+            unlink($existingFile);
+          }
         }
         if (move_uploaded_file($imageTmp, $folder)) {
           $sql = "update `death_and_burial` set death_cert_images = '$imageNew_name' where deceased_name = '$deceased_name'";

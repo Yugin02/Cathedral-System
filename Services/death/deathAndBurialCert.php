@@ -74,7 +74,7 @@ $currentYear = date('Y');
     <div class="align-self-center" style="width: 85%; border: solid 3px #000; font-size:24px; padding: 8% 7%; text-align:start; font-weight:500">
       <p>This is to certify that <span><?php echo $deceased_name ?></span></p>
       <p>Resident of <span><?php echo $address ?></span></p>
-      <p>died on the <span><?php echo $death_day ?></span> day of <span><?php echo $death_month ?></span> , <span><?php echo $death_year ?></span> at the age of <span><?php echo $age ?></span></p>
+      <p>died on the <span><?php echo $death_month ?> <?php echo $death_day ?></span>, <span><?php echo $death_year ?></span> at the age of <span><?php echo $age ?></span></p>
       <p style="color: #000;
       text-align: center;
       font-family: Old English Text MT;
@@ -86,9 +86,9 @@ $currentYear = date('Y');
       margin: 7% 0;">He/She was given the solemn Funeral Rites <br> according to the Roman Catholic Church</p>
       <p>Officiated by the <span><?php echo $minister ?></span></p>
       <p>and was buried at the <span><?php echo $burial_address ?></span></p>
-      <p>of Borongan, Eastern Samar on the <span><?php echo $burial_day ?></span> day of <span><?php echo $burial_month ?></span></p>
+      <p>of Borongan City, Eastern Samar on the <span><?php echo $burial_month ?> <?php echo $burial_day ?></span>, <span><?php echo $burial_year ?></span></p>
       <p>as appears on the Parish Death Register Book: <span><?php echo $Book_number ?></span> Page: <span><?php echo $Book_page ?></span> Line: <span><?php echo $Book_line ?></span></p>
-      <p style="margin-top: 5%;">Given this <span><?php echo $currentDay ?></span> day of <span><?php echo $currentMonth ?></span> <?php echo $currentYear ?> at the Parish Office, <br> Borongan City Eastern Samar, Philippines.</p>
+      <p style="margin-top: 5%;">Given this <span><?php echo $currentMonth ?> <?php echo $currentDay ?></span>, <?php echo $currentYear ?> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;
