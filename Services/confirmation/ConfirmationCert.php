@@ -38,7 +38,7 @@ $currentYear = date('Y');
   </div>
   <section class="d-flex flex-column" id="certificate" style="width: 78rem; text-align: center; padding: 50px 0;">
     <div class="d-flex justify-content-center align-items-center">
-      <img src="../images/logo.png" alt="">
+      <img style="position: absolute; left:10%" src="../images/logo.png" alt="">
       <p style="color: #000;
         text-align: center;
         -webkit-text-stroke-width: 0.5;
@@ -47,7 +47,9 @@ $currentYear = date('Y');
         font-size: 25px;
         font-style: normal;
         font-weight: 400;
-        line-height: normal;">
+        line-height: normal;
+        margin-bottom:70px;
+        margin-top:30px">
         Diocese of Borongan <br> Nativity of Our Lady Cathedral Parish <br> Borongan City 6800</p>
     </div>
     <h1 style="color: #7AE7FA;
@@ -60,7 +62,7 @@ $currentYear = date('Y');
       -webkit-text-stroke-width:.03cm;
       -webkit-text-stroke-color: #000;">
       Certificate of Confirmation</h1>
-    <div class="align-self-center" style="font-weight:500; width: 85%; border: solid 3px #000; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start">
+    <div class="align-self-center" style="font-weight:500; width: 85%; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start">
       <p style="text-align: center; margin-bottom:7%">This is to certify that</p>
       <p style="font-weight: 600;">NAME: <span style="border-bottom: none; font-weight:bold; margin-left:100px"><?php echo strtoupper($row['fullname']) ?></span></p>
       <p style="font-weight: 600;">FATHER: <span style="border-bottom: none; font-weight:bold; margin-left: 75px"><?php echo $row['father_name'] ?></span></p>
@@ -97,8 +99,8 @@ $currentYear = date('Y');
         win.document.write('<html><head><title>Certificate</title>');
         win.document.write('<link rel="stylesheet" href="certificate.css">');
         win.document.write('<style>');
-        win.document.write('@page { margin: 0; size: auto; } body { margin: 0; } img { width: 100%; height: 100vh; object-fit: cover; }');
-        win.document.write('html, body { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }');
+        win.document.write('@page { margin: 96px; size: auto; } body { margin: 0; } img { width: 98%; height: 98vh; object-fit: cover; border:5px solid #5BB4F4; }');
+        win.document.write('html, body { width: 100%; height: 100%; margin: 0; padding: 0; }');
         win.document.write('</style>');
         win.document.write('</head><body>');
         win.document.write('<img src="' + canvas.toDataURL() + '" />');
