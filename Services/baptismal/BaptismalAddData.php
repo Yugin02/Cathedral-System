@@ -84,7 +84,7 @@ if (isset($_POST['submit'])) {
   } else {
     if (in_array($imageAct_ext, $allowed_ext)) {
       if ($error === 0) {
-        if ($imageSize < 500000) {
+        if ($imageSize < 5000000) {
           $imageNew_name = $Child_familyname . "_" . $Child_name . "." . $imageAct_ext;
           $folder = '../../images/Baptismal/' . $imageNew_name;
           move_uploaded_file($imageTmp, $folder);
@@ -179,12 +179,12 @@ if (isset($_POST['submit'])) {
         <p>Godfather Residence</p>
         <div>
           <div class="mb-3">
-            <label>Municipality <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-residence-municipality" autocomplete="off" required>
+            <label>Municipality <span style="font-style: italic; color:grey">(Optional)</span></label>
+            <input type="text" class="form-control" name="Godfather-residence-municipality" autocomplete="off">
           </div>
           <div class="mb-3">
-            <label>Barangay <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-residence-barangay" autocomplete="off" required>
+            <label>Barangay <span style="font-style: italic; color:grey">(Optional)</span></label>
+            <input type="text" class="form-control" name="Godfather-residence-barangay" autocomplete="off">
           </div>
         </div>
         <p>Godmother</p>
@@ -210,8 +210,8 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Live Birth <span style="color: red; font-weight:normal">*</span></p>
-          <input type="file" class="form-control" name="live-birth" autocomplete="off" required>
+          <p>Live Birth <span style="color: grey; font-weight:normal">(Optional)</span></p>
+          <input type="file" class="form-control" name="live-birth" autocomplete="off">
         </div>
         <p>Book</p>
         <div class="d-flex gap-3">
@@ -291,8 +291,8 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Remarks <span style="color: red; font-weight:normal">*</span></p>
-          <input type="text" class="form-control" name="Remarks" autocomplete="off" required>
+          <p>Remarks <span style="font-style: italic; color:grey; font-weight:normal">(Optional)</span></p>
+          <input type="text" class="form-control" name="Remarks" autocomplete="off">
         </div>
         <div class="mb-3">
           <p>Officiating Minister <span style="color: red; font-weight:normal">*</span></p>

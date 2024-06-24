@@ -142,11 +142,11 @@ if (isset($_POST['submit'])) {
         ($marriageCert['error'] === 0)
       ) {
         if (
-          ($wifeBaptismal['size'] < 500000) ||
-          ($wifeConfirmation['size'] < 500000) ||
-          ($husbandBaptismal['size'] < 500000) ||
-          ($husbandConfirmation['size'] < 500000) ||
-          ($marriageCert['size'] < 500000)
+          ($wifeBaptismal['size'] < 5000000) ||
+          ($wifeConfirmation['size'] < 5000000) ||
+          ($husbandBaptismal['size'] < 5000000) ||
+          ($husbandConfirmation['size'] < 5000000) ||
+          ($marriageCert['size'] < 5000000)
         ) {
 
           $folderPath = '../../images/Marriage/' . $random_number . '/';
@@ -340,7 +340,7 @@ if (isset($_POST['submit'])) {
           <p>Date of Marriage <span style="color: red; font-weight:normal">*</span></p>
           <input type="date" class="form-control" name="marriage-date" autocomplete="off" required>
         </div>
-        <p>Marriage Certificate</p>
+        <p>Couples' Certificate</p>
         <div>
           <div class="d-flex justify-content-start gap-4 mb-3">
             <div class="form-check">
@@ -352,24 +352,38 @@ if (isset($_POST['submit'])) {
             <div class="form-check">
               <input style="border: 1px solid #000;" class="form-check-input" type="radio" name="flexRadioDefault" value="cohabitant" id="cohabitant" onchange="toggleSelect(this)">
               <label class="form-check-label" for="flexRadioDefault1">
-                Cohabitant
+                Cohabitant <span style="font-style:italic; color:grey">(More than 5 years)</span>
+              </label>
+            </div>
+            <div class="form-check">
+              <input type="hidden" name="typeOfCertificate" id="typeOfCertificate">
+              <input style="border: 1px solid #000;" class="form-check-input" type="radio" name="flexRadioDefault" value="cohabitant1" id="cohabitant1" onchange="toggleSelect(this)">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Cohabitant <span style="font-style:italic; color:grey">(Less than 5 years)</span>
+              </label>
+            </div>
+            <div class="form-check">
+              <input style="border: 1px solid #000;" class="form-check-input" type="radio" name="flexRadioDefault" value="engage" id="engage" onchange="toggleSelect(this)">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Engage
               </label>
             </div>
           </div>
-          <div class="mb-3">
-            <select id="married-selected" style="border: 1px solid #000; border-radius:0; display:none;" class="form-select" name="married" required>
-              <option>Marriage Contract or Marriage License</option>
-              <option>Civil Marriage Contract</option>
-            </select>
+          <div class="mb-3" id="married-selected" style="display: none;">
+            <p>CIvilly Marriage<span style="color: red; font-weight:normal">*</span></p>
+            <input type="file" class="form-control" name="marriage-cert" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <select id="cohabitant-selected" style="border: 1px solid #000; border-radius:0; display:none;" class="form-select" name="cohabitant" required>
-              <option>Affidavit of Cohabitation (5 years or more)</option>
-              <option>Marriage License (less than 5 years)</option>
-            </select>
+          <div class="mb-3" id="cohabitant-selected" style="display: none;">
+            <p>Affidavit of Cohabitation<span style="color: red; font-weight:normal">*</span></p>
+            <input type="file" class="form-control" name="marriage-cert" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <input id="file" style="display: none;" type="file" class="form-control" name="marriage-cert" autocomplete="off" required>
+          <div class="mb-3" id="cohabitant1-selected" style="display: none;">
+            <p>Marriage license certificate<span style="color: red; font-weight:normal">*</span></p>
+            <input type="file" class="form-control" name="marriage-cert" autocomplete="off" required>
+          </div>
+          <div class="mb-3" id="engage-selected" style="display: none;">
+            <p>Marriage license certificate<span style="color: red; font-weight:normal">*</span></p>
+            <input type="file" class="form-control" name="marriage-cert" autocomplete="off" required>
           </div>
         </div>
         <p>Book</p>
@@ -504,17 +518,13 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>License Number <span style="color: red; font-weight:normal">*</span></p>
-          <input type="text" class="form-control" name="license-number" autocomplete="off" required>
-        </div>
-        <div class="mb-3">
           <p>Officiating Minister <span style="color: red; font-weight:normal">*</span></p>
           <div class="d-flex align-items-end gap-3" required>
             <input type="text" class="form-control" name="minister" autocomplete="off">
           </div>
         </div>
         <div class="mb-3">
-          <p>Priest of the Week </p>
+          <p>Priest of the Week <span style="font-style: italic; font-weight:400">(Signatories)</span> </p>
           <input type="text" class="form-control" name="priest" autocomplete="off">
         </div>
       </div>
@@ -525,17 +535,40 @@ if (isset($_POST['submit'])) {
     function toggleSelect(radio) {
       var married = document.getElementById('married-selected');
       var cohabitant = document.getElementById('cohabitant-selected');
+      var cohabitant1 = document.getElementById('cohabitant1-selected');
+      var engage = document.getElementById('engage-selected');
+      var typeOfCertificate = document.getElementById('typeOfCertificate');
       var file = document.getElementById('file');
 
       if (radio.value === 'married') {
         married.style.display = 'block';
         cohabitant.style.display = 'none';
+        cohabitant1.style.display = 'none';
+        engage.style.display = 'none';
+        typeOfCertificate.value = "Civilly_Marriage_Cert"
       } else if (radio.value === 'cohabitant') {
         cohabitant.style.display = 'block';
         married.style.display = 'none';
+        cohabitant1.style.display = 'none';
+        engage.style.display = 'none';
+        typeOfCertificate.value = "Affidavit _Cert"
+      } else if (radio.value === 'cohabitant1') {
+        cohabitant.style.display = 'none';
+        married.style.display = 'none';
+        cohabitant1.style.display = 'block';
+        engage.style.display = 'none';
+        typeOfCertificate.value = "Marriage_License_Cert";
+      } else if (radio.value === 'engage') {
+        cohabitant.style.display = 'none';
+        married.style.display = 'none';
+        cohabitant1.style.display = 'none';
+        engage.style.display = 'block';
+        typeOfCertificate.value = "Marriage_License_Cert";
       } else {
         cohabitant.style.display = 'none';
         married.style.display = 'none';
+        cohabitant1.style.display = 'none';
+        engage.style.display = 'none';
       }
       file.style.display = 'block';
     }

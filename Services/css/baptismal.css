@@ -83,6 +83,12 @@ td button {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+p {
+  font-family: "Merriweather", serif;
+}
+span {
+  font-family: "Merriweather", serif;
+}
 .pop_up button {
   padding: 7% 30%;
   font-weight: 600;

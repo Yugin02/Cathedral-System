@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
   } else {
     if (in_array($imageAct_ext, $allowed_ext)) {
       if ($error === 0) {
-        if ($imageSize < 500000) {
+        if ($imageSize < 5000000) {
           $imageNew_name = $deceased_name . "_" . $deceased_familyname . "." . $imageAct_ext;
           $folder = '../../images/Death and Burial/' . $imageNew_name;
           move_uploaded_file($imageTmp, $folder);

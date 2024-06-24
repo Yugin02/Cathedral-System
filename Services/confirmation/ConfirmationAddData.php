@@ -76,7 +76,7 @@ if (isset($_POST['submit'])) {
   } else {
     if (in_array($imageAct_ext, $allowed_ext)) {
       if ($error === 0) {
-        if ($imageSize < 500000) {
+        if ($imageSize < 5000000) {
           $imageNew_name = $Child_familyname . "_" . $Child_name . "." . $imageAct_ext;
           $folder = '../../images/Confirmation/' . $imageNew_name;
           move_uploaded_file($imageTmp, $folder);
@@ -174,9 +174,9 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Remarks <span style="color: red; font-weight:normal">*</span></p>
+          <p>Remarks</p>
           <div class="d-flex align-items-end gap-3">
-            <input type="text" class="form-control" name="remarks" autocomplete="off" required>
+            <input type="text" class="form-control" name="remarks" autocomplete="off">
           </div>
         </div>
         <p>Book</p>

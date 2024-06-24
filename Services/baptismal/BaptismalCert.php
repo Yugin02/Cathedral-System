@@ -39,6 +39,7 @@ $currentYear = date('Y');
   <link href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Luxurious+Script&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/certificate.css">
 </head>
 
@@ -75,11 +76,11 @@ $currentYear = date('Y');
       Certificate of Baptism</h1>
     <div class="align-self-center" style="width: 85%; border: solid 3px #000; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start; font-weight:500">
       <p style="text-align: center; margin-bottom:7%">This is to certify that</p>
-      <p style="font-weight: 600;">CHILD: <span><?php echo $child_name ?></span></p>
-      <p style="font-weight: 600;">FATHER: <span><?php echo $father_name ?></span></p>
-      <p style="font-weight: 600;">MOTHER: <span><?php echo $mother_name ?></span></p>
-      <p style="font-weight: 600;">Date of Birth: <span><?php echo $date_of_birth ?></span></p>
-      <p style="font-weight: 600;">Place of Birth: <span><?php echo $place_of_birth ?></span></p>
+      <p style="font-weight: 600;">CHILD: <span style="border-bottom:none; margin-left:85px; font-weight:700"><?php echo strtoupper($child_name) ?></span></p>
+      <p style="font-weight: 600;">FATHER: <span style="border-bottom:none; margin-left:60px; font-weight:700"><?php echo $father_name ?></span></p>
+      <p style="font-weight: 600;">MOTHER: <span style="border-bottom:none; margin-left:50px; font-weight:700"><?php echo $mother_name ?></span></p>
+      <p style="font-weight: 600;">Date of Birth: <span style="border-bottom:none; margin-left:8px; font-weight:700"><?php echo $date_of_birth ?></span></p>
+      <p style="font-weight: 600;">Place of Birth: <span style="border-bottom:none; margin-left:0px; font-weight:700"><?php echo $place_of_birth ?></span></p>
       <p style="text-align: center; margin:7% 0; letter-spacing: 2.4px">was solemnly BAPTIZED according to the <br> rites of the Roman Catholic Church </p>
 
       <p>on <span><?php echo $baptism_month ?> <?php echo $baptism_day ?>, <?php echo $baptism_year  ?></span></p>
@@ -88,7 +89,7 @@ $currentYear = date('Y');
       <p>and the sponsors being: <span><?php echo $godfather_name ?> and <?php echo $godmother_name ?></span></p>
       <p>as it appears in the BAPTISMAL REGISTER</p>
       <p>Book: <span><?php echo $Book_number ?></span> Page: <span><?php echo $Book_page ?></span> Line: <span><?php echo $Book_line ?></span></p>
-      <p style="margin-top: 5%;">Given this <span><?php echo $currentDay ?></span> day of <span><?php echo $currentMonth ?></span> <?php echo $currentYear ?> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
+      <p style="margin-top: 5%;">Given this <span><?php echo $currentMonth ?> <?php echo $currentDay ?>, <?php echo $currentYear  ?></span> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;

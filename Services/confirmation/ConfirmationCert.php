@@ -62,11 +62,11 @@ $currentYear = date('Y');
       Certificate of Confirmation</h1>
     <div class="align-self-center" style="font-weight:500; width: 85%; border: solid 3px #000; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start">
       <p style="text-align: center; margin-bottom:7%">This is to certify that</p>
-      <p style="font-weight: 600;">NAME: <span><?php echo $row['fullname'] ?></span></p>
-      <p style="font-weight: 600;">FATHER: <span><?php echo $row['father_name'] ?></span></p>
-      <p style="font-weight: 600;">MOTHER: <span><?php echo $row['mother_name'] ?></span></p>
-      <p style="font-weight: 600;">Date of Baptism: <span><?php echo $row['baptized_date'] ?></span></p>
-      <p style="font-weight: 600;">Place of Baptism: <span><?php echo $row['parish_address'] ?></span></p>
+      <p style="font-weight: 600;">NAME: <span style="border-bottom: none; font-weight:bold; margin-left:100px"><?php echo strtoupper($row['fullname']) ?></span></p>
+      <p style="font-weight: 600;">FATHER: <span style="border-bottom: none; font-weight:bold; margin-left: 75px"><?php echo $row['father_name'] ?></span></p>
+      <p style="font-weight: 600;">MOTHER: <span style="border-bottom: none; font-weight:bold; margin-left:62px"><?php echo $row['mother_name'] ?></span></p>
+      <p style="font-weight: 600;">Date of Baptism: <span style="border-bottom: none; font-weight:bold; margin-left:5px"><?php echo $row['baptized_date'] ?></span></p>
+      <p style="font-weight: 600;">Place of Baptism: <span style="border-bottom: none; font-weight:bold; margin-left:0px"><?php echo $row['parish_address'] ?></span></p>
       <p style="text-align: center; margin:7% 0; letter-spacing: 2.4px">was solemnly CONFIRMED according to the <br> rites of the Roman Catholic Church </p>
       <p>on <span><?php echo $row['confirmed_month'] ?> <?php echo $row['confirmed_day'] ?>, <?php echo $row['confirmed_year'] ?></span></p>
       <p>at the Nativity of Our Lady Cathedral Parish, <br>Borongan City, Eastern Samar</p>

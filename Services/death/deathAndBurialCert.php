@@ -72,9 +72,9 @@ $currentYear = date('Y');
       letter-spacing: 6px;">
       Certificate of Death and Burial</h1>
     <div class="align-self-center" style="width: 85%; border: solid 3px #000; font-size:24px; padding: 8% 7%; text-align:start; font-weight:500">
-      <p>This is to certify that <span><?php echo $deceased_name ?></span></p>
-      <p>Resident of <span><?php echo $address ?></span></p>
-      <p>died on the <span><?php echo $death_month ?> <?php echo $death_day ?></span>, <span><?php echo $death_year ?></span> at the age of <span><?php echo $age ?></span></p>
+      <p>This is to certify that <span style="border-bottom: none; font-weight:600"><?php echo $deceased_name ?></span></p>
+      <p>Resident of <span style="border-bottom: none; font-weight:600"><?php echo $address ?></span></p>
+      <p>died on the <span style="border-bottom: none; font-weight:600"><?php echo $death_month ?> <?php echo $death_day ?></span>, <span style="border-bottom: none; font-weight:600"><?php echo $death_year ?></span> at the age of <span style="border-bottom: none; font-weight:600"><?php echo $age ?></span></p>
       <p style="color: #000;
       text-align: center;
       font-family: Old English Text MT;
