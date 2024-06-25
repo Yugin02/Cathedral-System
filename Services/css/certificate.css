@@ -32,8 +32,11 @@ input {
 }
 span {
   font-weight: 500;
-  border-bottom: 2px solid #000;
-  padding: 0 10px;
+  border-bottom: 1px solid #000;
+  padding: 0 20px;
+}
+.fontSize p {
+  font-size: 21.328px;
 }
 
 @media print {

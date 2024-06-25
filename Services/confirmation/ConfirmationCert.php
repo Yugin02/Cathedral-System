@@ -9,6 +9,22 @@ $row = mysqli_fetch_assoc($result);
 $currentMonth = date('F');
 $currentDay = date('j');
 $currentYear = date('Y');
+
+function ordinalSuffix($day)
+{
+  $day = (int)$day;
+  if (!in_array(($day % 100), array(11, 12, 13))) {
+    switch ($day % 10) {
+      case 1:
+        return $day . 'st';
+      case 2:
+        return $day . 'nd';
+      case 3:
+        return $day . 'rd';
+    }
+  }
+  return $day . 'th';
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +40,8 @@ $currentYear = date('Y');
   <link href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Luxurious+Script&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link href="https://fonts.cdnfonts.com/css/trajan-pro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/certificate.css">
 </head>
 
@@ -38,50 +56,49 @@ $currentYear = date('Y');
   </div>
   <section class="d-flex flex-column" id="certificate" style="width: 78rem; text-align: center; padding: 50px 0;">
     <div class="d-flex justify-content-center align-items-center">
-      <img style="position: absolute; left:10%" src="../images/logo.png" alt="">
+      <img style="position: absolute; left:15%; margin-top:-30px" src="../images/logo.png" alt="">
       <p style="color: #000;
         text-align: center;
         -webkit-text-stroke-width: 0.5;
         -webkit-text-stroke-color: #000;
         font-family: Luxurious Roman;
-        font-size: 25px;
+        font-size: 18px;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 600;
         line-height: normal;
-        margin-bottom:70px;
-        margin-top:30px">
+        margin-bottom:60px;
+        margin-top:40px;
+        font-family: 'Trajan Pro', sans-serif;">
         Diocese of Borongan <br> Nativity of Our Lady Cathedral Parish <br> Borongan City 6800</p>
     </div>
-    <h1 style="color: #7AE7FA;
+    <h1 style="color: #0AE7FA;
       font-family: Luxurious Script;
-      font-size: 90px;
+      font-size: 100px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
-      letter-spacing: 9px;
-      -webkit-text-stroke-width:.03cm;
-      -webkit-text-stroke-color: #000;">
+      letter-spacing: 9px;">
       Certificate of Confirmation</h1>
-    <div class="align-self-center" style="font-weight:500; width: 85%; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start">
+    <div class="align-self-center fontSize" style="font-weight:500; width: 85%; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start">
       <p style="text-align: center; margin-bottom:7%">This is to certify that</p>
-      <p style="font-weight: 600;">NAME: <span style="border-bottom: none; font-weight:bold; margin-left:100px"><?php echo strtoupper($row['fullname']) ?></span></p>
-      <p style="font-weight: 600;">FATHER: <span style="border-bottom: none; font-weight:bold; margin-left: 75px"><?php echo $row['father_name'] ?></span></p>
-      <p style="font-weight: 600;">MOTHER: <span style="border-bottom: none; font-weight:bold; margin-left:62px"><?php echo $row['mother_name'] ?></span></p>
-      <p style="font-weight: 600;">Date of Baptism: <span style="border-bottom: none; font-weight:bold; margin-left:5px"><?php echo $row['baptized_date'] ?></span></p>
+      <p style="font-weight: 600;">NAME: <span style="border-bottom: none; font-weight:bold; margin-left:112px"> <?php echo strtoupper($row['fullname']) ?></span></p>
+      <p style="font-weight: 600;">FATHER: <span style="border-bottom: none; font-weight:bold; margin-left: 89px"><?php echo $row['father_name'] ?></span></p>
+      <p style="font-weight: 600;">MOTHER: <span style="border-bottom: none; font-weight:bold; margin-left:79px"><?php echo $row['mother_name'] ?></span></p>
+      <p style="font-weight: 600;">Date of Baptism: <span style="border-bottom: none; font-weight:bold; margin-left:7px"><?php echo $row['baptized_date'] ?></span></p>
       <p style="font-weight: 600;">Place of Baptism: <span style="border-bottom: none; font-weight:bold; margin-left:0px"><?php echo $row['parish_address'] ?></span></p>
       <p style="text-align: center; margin:7% 0; letter-spacing: 2.4px">was solemnly CONFIRMED according to the <br> rites of the Roman Catholic Church </p>
-      <p>on <span><?php echo $row['confirmed_month'] ?> <?php echo $row['confirmed_day'] ?>, <?php echo $row['confirmed_year'] ?></span></p>
+      <p>on the <span><?php echo ordinalSuffix($row['confirmed_day']) ?></span> day of <span><?php echo $row['confirmed_month'] ?></span>, <span><?php echo $row['confirmed_year'] ?></span></p>
       <p>at the Nativity of Our Lady Cathedral Parish, <br>Borongan City, Eastern Samar</p>
       <p>by <span style="font-weight: 600;"><?php echo $row['minister'] ?></span></p>
       <p>and the sponsors being: <span><?php echo $row['godfather_name'] ?> and <?php echo $row['godmother_name'] ?></span></p>
       <p>as it appears in the CONFIRMATION REGISTER</p>
       <p>Book: <span> <?php echo $row['Book_number'] ?></span> Page: <span> <?php echo $row['Book_page'] ?></span> Line: <span><?php echo $row['Book_line'] ?></span></p>
-      <p style="margin-top: 5%;">Given this <span><?php echo $currentMonth ?> <?php echo $currentDay ?>, <?php echo $currentYear ?></span> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
+      <p style="margin-top: 5%;">Given this <span> <?php echo ordinalSuffix($currentDay) ?></span> day of <span> <?php echo $currentMonth ?> </span>, <span> <?php echo $currentYear ?> </span> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;
-      font-size: 30px;
-      margin:3% 10% 0"> <span><?php echo $row['priest'] ?></span> <br>Pastor</p>
+      font-size: 21.328px;
+      margin:3% 15% 0"> <span><?php echo $row['priest'] ?></span> <br>Pastor</p>
   </section>
   <script type="text/javascript">
     function printCertificate() {

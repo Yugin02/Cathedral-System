@@ -171,7 +171,7 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Priest of the Week <span style="font-style: italic; font-weight:normal">(Signaturies)</span></p>
+          <p>Priest of the Week <span style="font-style: italic; font-weight:normal">(Signatories)</span></p>
           <input type="text" class="form-control" name="priest" autocomplete="off">
         </div>
       </div>

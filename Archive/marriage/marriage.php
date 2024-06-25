@@ -621,43 +621,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
       $folderPath = '../../images/Marriage/' . $id_number;
       $files = scandir($folderPath);
       $files = array_diff($files, array('.', '..'));
-      echo "
+
+      if (empty($files)) {
+        echo "
+    <tr>
+      <td colspan='2' style='padding:10px;'>No files available</td>
+    </tr>
+    ";
+      } else {
+        $index = 1;
+        foreach ($files as $file) {
+          echo "
         <tr>
-          <td style = \" padding:10px;\">$files[2]</td>
-          <td onclick=\"window.location='marriage.php?files=$files[2] & Mid=$marriage_id & imageId=1';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
-          <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\"/>
-          <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\"/>
-        </svg></td>
-        </tr>
-        <tr>
-          <td style = \" padding:10px;\">$files[3]</td>
-          <td onclick=\"window.location='marriage.php?files=$files[3] & Mid=$marriage_id & imageId=2';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
-          <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\"/>
-          <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\"/>
-        </svg></td>
-        </tr>
-        <tr>
-          <td style = \" padding:10px;\">$files[4]</td>
-          <td onclick=\"window.location='marriage.php?files=$files[4] & Mid=$marriage_id & imageId=3';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
-          <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\"/>
-          <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\"/>
-        </svg></td>
-        </tr>
-        <tr>
-          <td style = \" padding:10px;\">$files[5]</td>
-          <td onclick=\"window.location='marriage.php?files=$files[5] & Mid=$marriage_id & imageId=4';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
-          <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\"/>
-          <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\"/>
-        </svg></td>
-        </tr>
-        <tr>
-          <td style = \" padding:10px;\">$files[6]</td>
-          <td onclick=\"window.location='marriage.php?files=$files[6] & Mid=$marriage_id & imageId=5';\" style = \" padding:10px; cursor:pointer;\"><svg  xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-eye-fill\" viewBox=\"0 0 16 16\">
-          <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0\"/>
-          <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7\"/>
-        </svg></td>
+          <td style='padding:10px;'>$file</td>
+          <td onclick=\"window.location='marriage.php?files=$file&Mid=$marriage_id&imageId=$index';\" style='padding:10px; cursor:pointer;'>
+            <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-eye-fill' viewBox='0 0 16 16'>
+              <path d='M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0'/>
+              <path d='M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7'/>
+            </svg>
+          </td>
         </tr>
         ";
+          $index++;
+        }
+      }
       ?>
     </tbody>
     </table>

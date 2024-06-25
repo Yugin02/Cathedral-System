@@ -24,6 +24,22 @@ $baptism_year = $row['baptism_year'];
 $currentMonth = date('F');
 $currentDay = date('j');
 $currentYear = date('Y');
+
+function ordinalSuffix($day)
+{
+  $day = (int)$day;
+  if (!in_array(($day % 100), array(11, 12, 13))) {
+    switch ($day % 10) {
+      case 1:
+        return $day . 'st';
+      case 2:
+        return $day . 'nd';
+      case 3:
+        return $day . 'rd';
+    }
+  }
+  return $day . 'th';
+}
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +55,7 @@ $currentYear = date('Y');
   <link href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Luxurious+Script&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link href="https://fonts.cdnfonts.com/css/trajan-pro" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/certificate.css">
 </head>
@@ -52,50 +69,51 @@ $currentYear = date('Y');
   </div>
   <section class="d-flex flex-column" id="certificate" style="width: 78rem; text-align: center; padding:50px 0;">
     <div class="d-flex justify-content-center align-items-center">
-      <img src="../images/logo.png" alt="">
+      <img style="position: absolute; left:15%; margin-top:-30px" src="../images/logo.png" alt="">
       <p style="color: #000;
         text-align: center;
         -webkit-text-stroke-width: 0.5;
         -webkit-text-stroke-color: #000;
         font-family: Luxurious Roman;
-        font-size: 25px;
+        font-size: 18px;
         font-style: normal;
-        font-weight: 400;
-        line-height: normal;">
+        font-weight: 600;
+        line-height: normal;
+        margin-bottom:60px;
+        margin-top:40px;
+        font-family: 'Trajan Pro', sans-serif;">
         Diocese of Borongan <br> Nativity of Our Lady Cathedral Parish <br> Borongan City 6800</p>
     </div>
-    <h1 style="color: #7AE7FA;
+    <h1 style="color: #0AE7FA;
       font-family: Luxurious Script;
-      font-size: 90px;
+      font-size: 100px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
-      letter-spacing: 9px;
-      -webkit-text-stroke-width:.03cm;
-      -webkit-text-stroke-color: #000;">
+      letter-spacing: 9px;">
       Certificate of Baptism</h1>
-    <div class="align-self-center" style="width: 85%; border: solid 3px #000; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start; font-weight:500">
+    <div class="align-self-center fontSize" style="width: 85%; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start; font-weight:500">
       <p style="text-align: center; margin-bottom:7%">This is to certify that</p>
-      <p style="font-weight: 600;">CHILD: <span style="border-bottom:none; margin-left:85px; font-weight:700"><?php echo strtoupper($child_name) ?></span></p>
-      <p style="font-weight: 600;">FATHER: <span style="border-bottom:none; margin-left:60px; font-weight:700"><?php echo $father_name ?></span></p>
-      <p style="font-weight: 600;">MOTHER: <span style="border-bottom:none; margin-left:50px; font-weight:700"><?php echo $mother_name ?></span></p>
+      <p style="font-weight: 600;">CHILD: <span style="border-bottom:none; margin-left:75px; font-weight:700"><?php echo strtoupper($child_name) ?></span></p>
+      <p style="font-weight: 600;">FATHER: <span style="border-bottom:none; margin-left:55px; font-weight:700"><?php echo $father_name ?></span></p>
+      <p style="font-weight: 600;">MOTHER: <span style="border-bottom:none; margin-left:45px; font-weight:700"><?php echo $mother_name ?></span></p>
       <p style="font-weight: 600;">Date of Birth: <span style="border-bottom:none; margin-left:8px; font-weight:700"><?php echo $date_of_birth ?></span></p>
       <p style="font-weight: 600;">Place of Birth: <span style="border-bottom:none; margin-left:0px; font-weight:700"><?php echo $place_of_birth ?></span></p>
       <p style="text-align: center; margin:7% 0; letter-spacing: 2.4px">was solemnly BAPTIZED according to the <br> rites of the Roman Catholic Church </p>
 
-      <p>on <span><?php echo $baptism_month ?> <?php echo $baptism_day ?>, <?php echo $baptism_year  ?></span></p>
+      <p>on the <span><?php echo ordinalSuffix($baptism_day) ?></span> day of <span><?php echo $baptism_month ?></span>, <span><?php echo $baptism_year ?></span></p>
       <p>at the Cathedral Parish of the Nativity of Our Lady, <br>Borongan City, Eastern Samar</p>
       <p>by the <strong style="font-weight: 600;">Rev.</strong> <span> <?php echo $minister ?> </span> </p>
       <p>and the sponsors being: <span><?php echo $godfather_name ?> and <?php echo $godmother_name ?></span></p>
       <p>as it appears in the BAPTISMAL REGISTER</p>
       <p>Book: <span><?php echo $Book_number ?></span> Page: <span><?php echo $Book_page ?></span> Line: <span><?php echo $Book_line ?></span></p>
-      <p style="margin-top: 5%;">Given this <span><?php echo $currentMonth ?> <?php echo $currentDay ?>, <?php echo $currentYear  ?></span> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
+      <p style="margin-top: 5%;">Given this <span> <?php echo ordinalSuffix($currentDay) ?></span> day of <span> <?php echo $currentMonth ?> </span>, <span> <?php echo $currentYear ?> </span> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;
-      font-size: 30px;
+      font-size: 21.328px;
       font-weight: 400;
-      margin:3% 10% 0"> <span><?php echo $priest ?></span><br>Pastor</p>
+      margin:3% 15% 0"> <span><?php echo $priest ?></span><br>Pastor</p>
   </section>
   <script type="text/javascript">
     function printCertificate() {
@@ -113,7 +131,7 @@ $currentYear = date('Y');
         win.document.write('<html><head><title>Certificate</title>');
         win.document.write('<link rel="stylesheet" href="certificate.css">');
         win.document.write('<style>');
-        win.document.write('@page { margin: 0; size: auto; } body { margin: 0; } img { width: 100%; height: 100vh; object-fit: cover; }');
+        win.document.write('@page { margin: 96px; size: auto; } body { margin: 0; } img { width: 98%; height: 98vh; object-fit: cover; border:5px solid #5BB4F4 }');
         win.document.write('html, body { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }');
         win.document.write('</style>');
         win.document.write('</head><body>');

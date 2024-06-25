@@ -64,10 +64,6 @@ if (isset($_POST['submit'])) {
   $data = mysqli_fetch_assoc($result);
 
   if ($data['count'] != 0) {
-    //   echo '<div id=\"data_exist\" class="d-flex flex-column align-items-center" style="position: absolute; padding: 3% 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%); position:fixed;">
-    //   <p style="text-align: center;">Data Already Exist!</p>
-    //   <button id="okay" class="btn btn-danger" style="padding: 1.5% 5%; margin-top: 3%;">OKAY</button>
-    // </div>';
     echo '<script>alert("Data Already Exist!"); </script>';
   } else {
     $sql = "insert into `confirmation` (id_number, Child_name, Child_familyname, confirmed_month, confirmed_day, confirmed_year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, baptism_municipality, baptism_barangay, Godfather_name, Godfather_familyname, Godmother_name, Godmother_familyname, minister, priest, Book_number, Book_page, Book_line, remarks) values ('$random_number','$Child_name','$Child_familyname', '$confirmed_month', '$confirmed_day', '$confirmed_year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$baptism_municipality', '$baptism_barangay', '$godfather_name', '$godfather_familyname', '$godmother_name', '$godmother_familyname', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks')";
@@ -139,14 +135,16 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
+          <p>Remarks <span style="font-weight: 400; font-style:italic;">(Signaturies)</span></p>
+          <div class="d-flex align-items-end gap-3">
+            <input type="text" class="form-control" name="remarks" autocomplete="off">
+          </div>
+        </div>
+        <div class="mb-3">
           <p>Officiating Minister <span style="color: red; font-weight:normal">*</span></p>
           <div class="d-flex align-items-end gap-3">
             <input type="text" class="form-control" name="minister" autocomplete="off" required>
           </div>
-        </div>
-        <div class="mb-3">
-          <p>Priest of the Week <span style="font-weight: 400; font-style:italic;">(Signaturies)</span></p>
-          <input type="text" class="form-control" name="priest" autocomplete="off" required>
         </div>
         <p>Book</p>
         <div class="d-flex gap-3">
@@ -210,10 +208,8 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Remarks <span style="color: red; font-weight:normal">*</span></p>
-          <div class="d-flex align-items-end gap-3">
-            <input type="text" class="form-control" name="remarks" autocomplete="off" required>
-          </div>
+          <p>Priest of the Week <span style="font-weight: 400; font-style:italic;">(Signaturies)</span></p>
+          <input type="text" class="form-control" name="priest" autocomplete="off" required>
         </div>
       </div>
     </div>

@@ -201,16 +201,16 @@ if (isset($_POST['submit'])) {
         <p>Godmother Residence</p>
         <div>
           <div class="mb-3">
-            <label>Municipality <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-residence-municipality" autocomplete="off" required>
+            <label>Municipality <span style="color: grey; font-weight:normal; font-style:italic">(Optional)</span></label>
+            <input type="text" class="form-control" name="Godmother-residence-municipality" autocomplete="off">
           </div>
           <div class="mb-3">
-            <label>Barangay <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-residence-barangay" autocomplete="off" required>
+            <label>Barangay <span style="color: grey; font-weight:normal; font-style:italic">(Optional)</span></label>
+            <input type="text" class="form-control" name="Godmother-residence-barangay" autocomplete="off">
           </div>
         </div>
         <div class="mb-3">
-          <p>Live Birth <span style="color: grey; font-weight:normal">(Optional)</span></p>
+          <p>Live Birth <span style="color: grey; font-weight:normal; font-style:italic">(Optional)</span></p>
           <input type="file" class="form-control" name="live-birth" autocomplete="off">
         </div>
         <p>Book</p>
@@ -302,7 +302,7 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Priest of the Week</p>
+          <p>Priest of the Week <span style="color: grey; font-weight:normal; font-style:italic">(Signatories)</span></p>
           <input type="text" class="form-control" name="priest" autocomplete="off" required>
         </div>
       </div>
@@ -313,11 +313,6 @@ if (isset($_POST['submit'])) {
     document.getElementById("back").addEventListener('click', function() {
       window.location.href = "baptismal.php"
     })
-    // document.getElementById("okay").addEventListener('click', function() {
-    //   var data = document.getElementById("data_exist");
-    //   data.style.display = "none";
-    //   console.log("asd");
-    // });
   </script>
 </body>
 

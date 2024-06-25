@@ -174,7 +174,7 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Remarks</p>
+          <p>Remarks <span style="font-weight: 400; font-style:italic; color:gray">(Optional)</span></p>
           <div class="d-flex align-items-end gap-3">
             <input type="text" class="form-control" name="remarks" autocomplete="off">
           </div>
@@ -241,7 +241,7 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Priest of the Week <span style="font-weight: 400; font-style:italic;">(Signaturies)</span></p>
+          <p>Priest of the Week <span style="font-weight: 400; font-style:italic; color:gray">(Signatories)</span></p>
           <input type="text" class="form-control" name="priest" autocomplete="off" required>
         </div>
       </div>

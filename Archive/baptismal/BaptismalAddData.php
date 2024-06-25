@@ -73,10 +73,6 @@ if (isset($_POST['submit'])) {
   $data = mysqli_fetch_assoc($result);
 
   if ($data['count'] != 0) {
-    //   echo '<div id=\"data_exist\" class="d-flex flex-column align-items-center" style="position: absolute; padding: 3% 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%); position:fixed;">
-    //   <p style="text-align: center;">Data Already Exist!</p>
-    //   <button id="okay" class="btn btn-danger" style="padding: 1.5% 5%; margin-top: 3%;">OKAY</button>
-    // </div>';
     echo '<script>alert("Data Already Exist!"); </script>';
   } else {
     $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, legitimity) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$legitimity')";
@@ -157,12 +153,12 @@ if (isset($_POST['submit'])) {
         <p>Godfather Residence</p>
         <div>
           <div class="mb-3">
-            <label>Municipality <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-residence-municipality" autocomplete="off" required>
+            <label>Municipality <span style="font-style: italic; font-weight:normal; color:gray">(Optional)</span></label>
+            <input type="text" class="form-control" name="Godfather-residence-municipality" autocomplete="off">
           </div>
           <div class="mb-3">
-            <label>Barangay <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-residence-barangay" autocomplete="off" required>
+            <label>Barangay <span style="font-style: italic; font-weight:normal; color:gray">(Optional)</span></label>
+            <input type="text" class="form-control" name="Godfather-residence-barangay" autocomplete="off">
           </div>
         </div>
         <p>Godmother</p>
@@ -179,12 +175,12 @@ if (isset($_POST['submit'])) {
         <p>Godmother Residence</p>
         <div>
           <div class="mb-3">
-            <label>Municipality <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-residence-municipality" autocomplete="off" required>
+            <label>Municipality <span style="font-style: italic; font-weight:normal; color:gray">(Optional)</span></label>
+            <input type="text" class="form-control" name="Godmother-residence-municipality" autocomplete="off">
           </div>
           <div class="mb-3">
-            <label>Barangay <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-residence-barangay" autocomplete="off" required>
+            <label>Barangay <span style="font-style: italic; font-weight:normal; color:gray">(Optional)</span></label>
+            <input type="text" class="form-control" name="Godmother-residence-barangay" autocomplete="off">
           </div>
         </div>
         <p>Book</p>
@@ -260,8 +256,8 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Remarks <span style="color: red; font-weight:normal">*</span></p>
-          <input type="text" class="form-control" name="Remarks" autocomplete="off" required>
+          <p>Remarks <span style="font-weight: 400; font-style:italic; color:gray">(Optional)</span></p>
+          <input type="text" class="form-control" name="Remarks" autocomplete="off">
         </div>
         <div class="mb-3">
           <p>Officiating Minister <span style="color: red; font-weight:normal">*</span></p>
@@ -271,7 +267,7 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Priest of the Week</p>
+          <p>Priest of the Week <span style="font-style: italic; font-weight:normal; color:gray">(Signatories)</span></p>
           <input type="text" class="form-control" name="priest" autocomplete="off" required>
         </div>
       </div>
