@@ -30,8 +30,8 @@ $Father_name = ucfirst($row['Father_name']);
 $Father_familyname = ucfirst($row['Father_familyname']);
 $Father_municipality = ucfirst($row['father_origin_municipality']);
 $Father_barangay = ucfirst($row['father_origin_barangay']);
-$Mother_municipality = ucfirst($row['mother_origin_barangay']);
-$Mother_barangay = ucfirst($row['mother_origin_municipality']);
+$Mother_municipality = ucfirst($row['mother_origin_municipality']);
+$Mother_barangay = ucfirst($row['mother_origin_barangay']);
 $minister = ucfirst($row['minister']);
 $priest = ucfirst($row['priest']);
 $remarks = ucfirst($row['remarks']);
@@ -251,7 +251,7 @@ if (isset($_POST['submit'])) {
           </div>
           <div class="mb-3">
             <label>Barangay <span>*</span></label>
-            <input type="text" class="form-control" name="mother-origin-barangay" autocomplete="off" required value="<?php echo $godmother_barangay ?>">
+            <input type="text" class="form-control" name="mother-origin-barangay" autocomplete="off" required value="<?php echo $Mother_barangay ?>">
           </div>
         </div>
         <p>Residence</p>

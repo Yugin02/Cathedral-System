@@ -35,6 +35,7 @@ if (isset($_POST['submit'])) {
   $baptismal = new DateTime($_POST['Baptismal']);
   $Child_name = ucfirst($_POST['Child-name']);
   $Child_familyname = ucfirst($_POST['Child-familyname']);
+  $Child_suffix = ucfirst($_POST['Child-suffix']);
   $month = $birth->format('F');
   $day = $birth->format('d');
   $year = $birth->format('Y');
@@ -43,8 +44,10 @@ if (isset($_POST['submit'])) {
   $baptism_year = $baptismal->format('Y');
   $father_name = ucfirst($_POST['Father-name']);
   $father_familyname = ucfirst($_POST['Father-familyname']);
+  $father_suffix = ucfirst($_POST['Father-suffix']);
   $mother_name = ucfirst($_POST['Mother-name']);
   $mother_familyname = ucfirst($_POST['Mother-familyname']);
+  $mother_suffix = ucfirst($_POST['Mother-suffix']);
   $mother_origin_municipality = ucfirst($_POST['mother-origin-municipality']);
   $mother_origin_barangay = ucfirst($_POST['mother-origin-barangay']);
   $father_origin_municipality = ucfirst($_POST['father-origin-municipality']);
@@ -53,10 +56,12 @@ if (isset($_POST['submit'])) {
   $parents_residence_barangay = ucfirst($_POST['Parents-residence-barangay']);
   $godfather_name = ucfirst($_POST['Godfather-name']);
   $godfather_familyname = ucfirst($_POST['Godfather-familyname']);
+  $godfather_suffix = ucfirst($_POST['Godfather-suffix']);
   $godfather_residence_municipality = ucfirst($_POST['Godfather-residence-municipality']);
   $godfather_residence_barangay = ucfirst($_POST['Godfather-residence-barangay']);
   $godmother_name = ucfirst($_POST['Godmother-name']);
   $godmother_familyname = ucfirst($_POST['Godmother-familyname']);
+  $godmother_suffix = ucfirst($_POST['Godmother-suffix']);
   $godmother_residence_municipality = ucfirst($_POST['Godmother-residence-municipality']);
   $godmother_residence_barangay = ucfirst($_POST['Godmother-residence-barangay']);
   $minister = ucfirst($_POST['minister']);
@@ -89,7 +94,7 @@ if (isset($_POST['submit'])) {
           $folder = '../../images/Baptismal/' . $imageNew_name;
           move_uploaded_file($imageTmp, $folder);
 
-          $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, live_birth_image, legitimity) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$imageNew_name', '$legitimity')";
+          $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, live_birth_image, legitimity, Child_suffix, Father-suffix, Mother_suffix, Godfather_suffix, Godmother_suffix) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$imageNew_name', '$legitimity', '$Child_suffix', '$father_suffix', '$mother_suffix', '$godfather_suffix', '$godmother_suffix')";
           $result = mysqli_query($con, $sql);
           if ($result) {
             echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: fixed; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
@@ -108,7 +113,7 @@ if (isset($_POST['submit'])) {
       }
     } else {
 
-      $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, legitimity) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$legitimity')";
+      $sql = "insert into `baptismal` (id_number, Child_name, Child_familyname, month, day, year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, mother_origin_municipality, mother_origin_barangay,father_origin_municipality, father_origin_barangay,parents_residence_municipality, parents_residence_barangay, Godfather_name, Godfather_familyname, godfather_residence_municipality, godfather_residence_barangay, Godmother_name, Godmother_familyname, godmother_residence_municipality, godmother_residence_barangay, minister, priest, Book_number, Book_page, Book_line, remarks, legitimity, Child_suffix, Father-suffix, Mother_suffix, Godfather_suffix, Godmother_suffix) values ('$random_number','$Child_name','$Child_familyname', '$month', '$day', '$year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$mother_origin_municipality', '$mother_origin_barangay', '$father_origin_municipality', '$father_origin_barangay', '$parents_residence_municipality', '$parents_residence_barangay', '$godfather_name', '$godfather_familyname', '$godfather_residence_municipality', '$godfather_residence_barangay', '$godmother_name', '$godmother_familyname', '$godmother_residence_municipality', '$godmother_residence_barangay', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$legitimity', '$Child_suffix', '$father_suffix', '$mother_suffix', '$godfather_suffix', '$godmother_suffix')";
       $result = mysqli_query($con, $sql);
       if ($result) {
         echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: fixed; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
@@ -154,9 +159,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Child-name" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Child-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Child-familyname" autocomplete="off" required>
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Child-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
         <div class="d-flex gap-3">
@@ -182,9 +193,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Godfather-name" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Godfather-familyname" autocomplete="off" required>
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Godfather-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
         <p>Godfather Residence</p>
@@ -204,9 +221,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Godmother-name" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Godmother-familyname" autocomplete="off" required>
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Godmother-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
         <p>Godmother Residence</p>
@@ -252,9 +275,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Father-name" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Father-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Father-familyname" autocomplete="off" required>
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Father-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
         <p>Place of Origin</p>
@@ -274,9 +303,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Mother-name" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Mother-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Mother-familyname" autocomplete="off" required>
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Mother-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
         <p>Place of Origin</p>

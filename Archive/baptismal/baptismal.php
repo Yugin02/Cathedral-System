@@ -112,7 +112,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
   <section class="px-2 py-3">
     <div class="d-flex justify-content-between my-4">
       <form class="d-flex searchbar" method="post" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search Book Number" name="search" aria-label="Search" autocomplete="off">
+        <input class="form-control me-2" style="padding-left: 150px;" type="search" placeholder="Search" name="search" aria-label="Search" autocomplete="off">
+        <select style="position:absolute; align-self:center; border:none; margin-left:10px; border-right:1px solid #000; outline:none; text-align:center" name="searchType" required>
+          <option>Book Number</option>
+          <option>Name</option>
+        </select>
         <button class="btn btn-outline-info" type="submit" name="search1">Search</button>
       </form>
       <button style=" color:black; border: solid 1px black; padding:0; margin:0;" type="button" class="add_data_button btn btn-info"><a style="border:none; padding: 15px 20px; text-decoration:none; color:black; font-weight:600" href="BaptismalAddData.php">Add Data</a></button>
@@ -204,16 +208,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
           <?php
           if (isset($_POST['search1'])) {
             $book_number_value = mysqli_real_escape_string($con, $_POST['search']);
-            $_SESSION['book_number'] = $book_number_value;
-            $sql = "SELECT * FROM `baptismal` 
+            $searchType = mysqli_real_escape_string($con, $_POST['searchType']);
+            if ($searchType == "Book Number") {
+              $_SESSION['book_number'] = $book_number_value;
+              $sql = "SELECT * FROM `baptismal` 
               WHERE Book_number = '$book_number_value'
               and Book_page = '1'";
-            $result = mysqli_query($con, $sql);
-            if ($result) {
-              if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                  $id = $row['id'];
-                  echo '<tr>
+              $result = mysqli_query($con, $sql);
+              if ($result) {
+                if (mysqli_num_rows($result) > 0) {
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    $id = $row['id'];
+                    echo '<tr>
                   <td >' . $row['Book_line'] . '</td>
                   <td >' . $row['baptism_year'] . '</td>
                   <td >' . $row['baptism_month'] . ' ' . $row['baptism_day'] . '</td>
@@ -229,17 +235,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
                   <td >' . $row['minister'] . '</td>
                   <td>' . $row['remarks'] . '</td>';
           ?>
-                  <td style="cursor:pointer;">
-                    <form class="image_form" action="baptismal.php" method="get">
-                      <input type="hidden" value="<?php echo $id ?>" name="id">
-                      <button class="show_img_button" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
-                          <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
-                          <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z" />
-                        </svg></button>
-                    </form>
-                  </td>
-                  </tr>
+                    <td style="cursor:pointer;">
+                      <form class="image_form" action="baptismal.php" method="get">
+                        <input type="hidden" value="<?php echo $id ?>" name="id">
+                        <button class="show_img_button" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                            <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                            <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z" />
+                          </svg></button>
+                      </form>
+                    </td>
+                    </tr>
                   <?php
+                  }
+                }
+              }
+            } elseif ($searchType == "Name") {
+              $sql = "SELECT * FROM `baptismal` 
+              WHERE Child_name LIKE '%$book_number_value%' 
+              OR Child_familyname LIKE '%$book_number_value%'";
+              $result = mysqli_query($con, $sql);
+              if ($result) {
+                if (mysqli_num_rows($result) > 0) {
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<tr>
+                  <td >' . $row['Book_line'] . '</td>
+                  <td >' . $row['baptism_year'] . '</td>
+                  <td >' . $row['baptism_month'] . ' ' . $row['baptism_day'] . '</td>
+                  <td >' . $row['Child_name'] . ' ' . $row['Child_familyname'] . '</td>
+                  <td >' . $row['year'] . '</td>
+                  <td >' . $row['month'] . ' ' . $row['day'] . '</td>
+                  <td ">' . $row['legitimity'] . '</td>
+                  <td ><div>' . $row['Mother_name'] . ' ' . $row['Mother_familyname'] . '</div><div style="border-top:1px solid #000;">' . $row['Father_name'] . ' ' . $row['Father_familyname'] . '</div></td>
+                  <td ><div>' . $row['mother_origin_municipality'] . ' ' . $row['mother_origin_barangay'] . '</div><div style="border-top:1px solid #000;">' . $row['father_origin_municipality'] . ' ' . $row['father_origin_barangay'] . '</div></td>
+                  <td >' . $row['parents_residence_municipality'] . ' ' . $row['parents_residence_barangay'] . '</td>
+                  <td ><div>' . $row['Godmother_name'] . ' ' . $row['Godmother_familyname'] . '</div><div style="border-top:1px solid #000;">' . $row['Godfather_name'] . ' ' . $row['Godfather_familyname'] . '</div></td>
+                  <td ><div>' . $row['godmother_residence_municipality'] . ' ' . $row['godmother_residence_barangay'] . '</div><div style="border-top:1px solid #000;">' . $row['godfather_residence_municipality'] . ' ' . $row['godfather_residence_barangay'] . '</div></td>
+                  <td >' . $row['minister'] . '</td>
+                  <td>' . $row['remarks'] . '</td>';
+                  ?>
+                    <td style="cursor:pointer;">
+                      <form class="image_form" action="baptismal.php" method="get">
+                        <input type="hidden" value="<?php echo $id ?>" name="id">
+                        <button class="show_img_button" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                            <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                            <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z" />
+                          </svg></button>
+                      </form>
+                    </td>
+                    </tr>
+                  <?php
+                  }
                 }
               }
             }
