@@ -2,6 +2,7 @@
 include '../../database.php';
 
 $length = 6;
+
 function id_number($length)
 {
   $characters = '0123456789';
@@ -26,7 +27,6 @@ while (!check_id_number($con, $randomNumber)) {
   $randomNumber = id_number($length);
 }
 
-
 if (isset($_POST['submit'])) {
   do {
     $random_number = id_number($length);
@@ -34,24 +34,29 @@ if (isset($_POST['submit'])) {
 
   $confirmation = new DateTime($_POST['Confirmation']);
   $baptismal = new DateTime($_POST['Baptismal']);
+  $Child_name = ucfirst($_POST['Child-name']);
+  $Child_familyname = ucfirst($_POST['Child-familyname']);
+  $Child_suffix = ucfirst($_POST['Child-suffix']);
   $confirmed_month = $confirmation->format('F');
   $confirmed_day = $confirmation->format('d');
   $confirmed_year = $confirmation->format('Y');
   $baptism_month = $baptismal->format('F');
   $baptism_day = $baptismal->format('d');
   $baptism_year = $baptismal->format('Y');
-  $Child_name = ucfirst($_POST['Child-name']);
-  $Child_familyname = ucfirst($_POST['Child-familyname']);
   $father_name = ucfirst($_POST['Father-name']);
   $father_familyname = ucfirst($_POST['Father-familyname']);
+  $Father_suffix = ucfirst($_POST['Father-suffix']);
   $mother_name = ucfirst($_POST['Mother-name']);
   $mother_familyname = ucfirst($_POST['Mother-familyname']);
+  $Mother_suffix = ucfirst($_POST['Mother-suffix']);
   $baptism_municipality = ucfirst($_POST['municipality']);
   $baptism_barangay = ucfirst($_POST['barangay']);
   $godfather_name = ucfirst($_POST['Godfather-name']);
   $godfather_familyname = ucfirst($_POST['Godfather-familyname']);
+  $Godfather_suffix = ucfirst($_POST['Godfather-suffix']);
   $godmother_name = ucfirst($_POST['Godmother-name']);
   $godmother_familyname = ucfirst($_POST['Godmother-familyname']);
+  $Godmother_suffix = ucfirst($_POST['Godmother-suffix']);
   $minister = ucfirst($_POST['minister']);
   $priest = ucfirst($_POST['priest']);
   $remarks = ucfirst($_POST['remarks']);
@@ -66,16 +71,21 @@ if (isset($_POST['submit'])) {
   if ($data['count'] != 0) {
     echo '<script>alert("Data Already Exist!"); </script>';
   } else {
-    $sql = "insert into `confirmation` (id_number, Child_name, Child_familyname, confirmed_month, confirmed_day, confirmed_year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, baptism_municipality, baptism_barangay, Godfather_name, Godfather_familyname, Godmother_name, Godmother_familyname, minister, priest, Book_number, Book_page, Book_line, remarks) values ('$random_number','$Child_name','$Child_familyname', '$confirmed_month', '$confirmed_day', '$confirmed_year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$baptism_municipality', '$baptism_barangay', '$godfather_name', '$godfather_familyname', '$godmother_name', '$godmother_familyname', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks')";
+    $sql = "insert into `confirmation` (id_number, Child_name, Child_familyname, confirmed_month, confirmed_day, confirmed_year, baptism_month, baptism_day, baptism_year, Father_name, Father_familyname , Mother_name, Mother_familyname, baptism_municipality, baptism_barangay, Godfather_name, Godfather_familyname, Godmother_name, Godmother_familyname, minister, priest, Book_number, Book_page, Book_line, remarks, Child_suffix, Father_suffix, Mother_suffix, Godmother_suffix, Godfather_suffix) values ('$random_number','$Child_name','$Child_familyname', '$confirmed_month', '$confirmed_day', '$confirmed_year', '$baptism_month', '$baptism_day', '$baptism_year', '$father_name', '$father_familyname', '$mother_name', '$mother_familyname', '$baptism_municipality', '$baptism_barangay', '$godfather_name', '$godfather_familyname', '$godmother_name', '$godmother_familyname', '$minister', '$priest', '$Book_number', '$Book_page', '$Book_line', '$remarks', '$Child_suffix', '$Father_suffix', '$Mother_suffix', '$Godmother_suffix', '$Godfather_suffix')";
     $result = mysqli_query($con, $sql);
     if ($result) {
-      header("location: confirmation.php");
+      echo "<div class=\"d-flex flex-column align-items-center\" style=\"position: fixed; padding: 5%; background-color:#fff; border: 1px solid #000; border-radius: 5px; top: 50%; left:50%; transform: translate(-50%, -50%);\">
+          <p style=\"text-align: center;\">Data Added Successfully! <br> Identification Number: <span style=\"border-bottom: 1px solid #000; padding: 0 10px;\"> $random_number</span></p>
+          <button class=\"btn btn-primary\" style=\"padding: 1.5% 5%; margin-top: 3%;\"><a style=\"text-decoration: none; color: #fff;\" href=\"confirmation.php\">Proceed</a></button>
+        </div>";
     } else {
       die(mysqli_error($con));
     }
   }
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,9 +100,9 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-  <form method="post" class="d-flex flex-column align-items-center" style="min-width: 879px; padding:0 7%;">
+  <form method="post" class="d-flex flex-column align-items-center" enctype="multipart/form-data" style="min-width: 879px; padding:0 7%;">
     <div class="form d-flex flex-column" style="width:100%; margin:50px 0">
-      <div class="d-flex align-items-center align-self-start" id="back" style="letter-spacing: 3px;">
+      <div class="d-flex align-items-center align-self-start" onclick="window.location.href='confirmation.php'" style="letter-spacing: 3px;">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
           <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753" />
         </svg>
@@ -108,9 +118,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Child-name" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Child-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Child-familyname" autocomplete="off" required>
+            </div>
+            <div>
+              <label>Suffix <span style="font-weight: 400; font-style:italic; color:gray">(If Applicable)</span></label>
+              <input type="text" class="form-control" name="Child-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
         <div class="d-flex gap-3">
@@ -135,15 +151,15 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Remarks <span style="font-weight: 400; font-style:italic;">(Signaturies)</span></p>
-          <div class="d-flex align-items-end gap-3">
-            <input type="text" class="form-control" name="remarks" autocomplete="off">
-          </div>
-        </div>
-        <div class="mb-3">
           <p>Officiating Minister <span style="color: red; font-weight:normal">*</span></p>
           <div class="d-flex align-items-end gap-3">
             <input type="text" class="form-control" name="minister" autocomplete="off" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <p>Remarks <span style="font-weight: 400; font-style:italic; color:gray">(Optional)</span></p>
+          <div class="d-flex align-items-end gap-3">
+            <input type="text" class="form-control" name="remarks" autocomplete="off">
           </div>
         </div>
         <p>Book</p>
@@ -169,9 +185,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Father-name" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Father-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Father-familyname" autocomplete="off" required>
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Father-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
         <p>Mother <span style="font-weight: 400; font-style:italic;">(Mother's Maiden Name)</span></p>
@@ -180,36 +202,54 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Mother-name" autocomplete="off" required>
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Mother-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Mother-familyname" autocomplete="off" required>
+            </div>
+            <div>
+              <label>Suffix <span style="font-weight: 400; font-style:italic; color:gray">(If Applicable)</span></label>
+              <input type="text" class="form-control" name="Mother-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
-        <p>Godfather</p>
+        <p>Godfather <span style="font-style: italic; color:grey; font-weight:400">(Optional)</span></p>
         <div>
           <div class="mb-3">
-            <label>Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-name" autocomplete="off" required>
+            <label>Name</label>
+            <input type="text" class="form-control" name="Godfather-name" autocomplete="off">
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name</label>
+              <input type="text" class="form-control" name="Godfather-familyname" autocomplete="off">
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Godfather-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
-        <p>Godmother</p>
+        <p>Godmother <span style="font-style: italic; color:grey; font-weight:400">(Optional)</span></p>
         <div>
           <div class="mb-3">
-            <label>Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-name" autocomplete="off" required>
+            <label>Name</label>
+            <input type="text" class="form-control" name="Godmother-name" autocomplete="off">
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-familyname" autocomplete="off" required>
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name</label>
+              <input type="text" class="form-control" name="Godmother-familyname" autocomplete="off">
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Godmother-suffix" autocomplete="off">
+            </div>
           </div>
         </div>
         <div class="mb-3">
-          <p>Priest of the Week <span style="font-weight: 400; font-style:italic;">(Signaturies)</span></p>
-          <input type="text" class="form-control" name="priest" autocomplete="off" required>
+          <p>Priest of the Week <span style="font-weight: 400; font-style:italic; color:gray">(Signatories)</span></p>
+          <input type="text" class="form-control" name="priest" autocomplete="off">
         </div>
       </div>
     </div>

@@ -39,8 +39,12 @@ $Book_number = ucfirst($row['Book_number']);
 $Book_page = ucfirst($row['Book_page']);
 $Book_line = ucfirst($row['Book_line']);
 $legitimity = ucfirst($row['legitimity']);
+$Child_suffix = $row['Child_suffix'];
+$Father_suffix = $row['Father_suffix'];
+$Mother_suffix = $row['Mother_suffix'];
+$Godfather_suffix = $row['Godfather_suffix'];
+$Godmother_suffix = $row['Godmother_suffix'];
 
-$folder = '../../images/Baptismal/' . $row['live_birth_image'];
 
 $month1 = date('m', strtotime($month));
 $birth_date = $year . "-" . str_pad($month1, 2, "0", STR_PAD_LEFT) . "-" . str_pad($day, 2, "0", STR_PAD_LEFT);
@@ -83,8 +87,13 @@ if (isset($_POST['submit'])) {
   $Book_line = $_POST['Book-line'];
   $remarks = ucfirst($_POST['Remarks']);
   $legitimity = ucfirst($_POST['legitimity']);
+  $Child_suffix = $row['Child-suffix'];
+  $Father_suffix = $row['Father-suffix'];
+  $Mother_suffix = $row['Mother-suffix'];
+  $Godfather_suffix = $row['Godfather-suffix'];
+  $Godmother_suffix = $row['Godmother-suffix'];
 
-  $sql = "update `baptismal` set Child_name='$Child_name', Child_familyname='$Child_familyname', month='$month', day='$day', year='$year', baptism_month='$baptism_month', baptism_day='$baptism_day', baptism_year='$baptism_year', parents_residence_municipality='$municipality', parents_residence_barangay='$barangay', Godfather_name='$godfather_name', Godfather_familyname='$godfather_familyname', godfather_residence_municipality= '$godfather_residence_municipality', godfather_residence_barangay= '$godfather_residence_barangay', Godmother_name='$godmother_name', Godmother_familyname='$godmother_familyname',godmother_residence_municipality='$godmother_residence_municipality', godmother_residence_barangay='$godmother_residence_barangay', Mother_name='$mother_name', Mother_familyname='$mother_familyname', mother_origin_municipality='$mother_origin_municipality', mother_origin_barangay='$mother_origin_barangay', Father_name='$father_name', Father_familyname='$father_familyname', father_origin_municipality='$father_origin_municipality', father_origin_barangay='$father_origin_barangay', parents_residence_municipality='$parents_residence_municipality', parents_residence_barangay='$parents_residence_barangay', remarks='$remarks', minister='$minister', priest='$priest', Book_number='$Book_number', Book_page='$Book_page', Book_line='$Book_line', legitimity='$legitimity' where id=$id";
+  $sql = "update `baptismal` set Child_name='$Child_name', Child_familyname='$Child_familyname', month='$month', day='$day', year='$year', baptism_month='$baptism_month', baptism_day='$baptism_day', baptism_year='$baptism_year', parents_residence_municipality='$municipality', parents_residence_barangay='$barangay', Godfather_name='$godfather_name', Godfather_familyname='$godfather_familyname', godfather_residence_municipality= '$godfather_residence_municipality', godfather_residence_barangay= '$godfather_residence_barangay', Godmother_name='$godmother_name', Godmother_familyname='$godmother_familyname',godmother_residence_municipality='$godmother_residence_municipality', godmother_residence_barangay='$godmother_residence_barangay', Mother_name='$mother_name', Mother_familyname='$mother_familyname', mother_origin_municipality='$mother_origin_municipality', mother_origin_barangay='$mother_origin_barangay', Father_name='$father_name', Father_familyname='$father_familyname', father_origin_municipality='$father_origin_municipality', father_origin_barangay='$father_origin_barangay', parents_residence_municipality='$parents_residence_municipality', parents_residence_barangay='$parents_residence_barangay', remarks='$remarks', minister='$minister', priest='$priest', Book_number='$Book_number', Book_page='$Book_page', Book_line='$Book_line', legitimity='$legitimity', Child_suffix='$Child_suffix', Father_suffix='$Father_suffix', Mother_suffix='$Mother_suffix', Godfather_suffix='$Godfather_suffix', Godmother_suffix='$Godmother_suffix' where id=$id";
   $result = mysqli_query($con, $sql);
   if ($result) {
     header('location:baptismal.php');
@@ -111,7 +120,7 @@ if (isset($_POST['submit'])) {
 <body>
   <form method="post" class="d-flex flex-column align-items-center" enctype="multipart/form-data" style="min-width: 879px; padding:0 7%;">
     <div class="form d-flex flex-column" style="width:100%; margin:50px 0">
-      <div class="d-flex align-items-center align-self-start" id="back" style="letter-spacing: 3px;">
+      <div class="d-flex align-items-center align-self-start" onclick="window.location.href='baptismal.php'" style="letter-spacing: 3px;">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
           <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753" />
         </svg>
@@ -127,9 +136,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Child-name" autocomplete="off" required value="<?php echo $Child_name ?>">
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Child-familyname" autocomplete="off" required value="<?php echo $Child_familyname ?>">
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Child-familyname" autocomplete="off" required value="<?php echo $Child_familyname ?>">
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Child-suffix" autocomplete="off" value="<?php echo $Child_suffix ?>">
+            </div>
           </div>
         </div>
         <div class="d-flex gap-3">
@@ -149,48 +164,60 @@ if (isset($_POST['submit'])) {
             <option <?php echo ($legitimity == 'Illegitimate') ? 'selected' : ''; ?>>Illegitimate</option>
           </select>
         </div>
-        <p>Godfather</p>
+        <p>Godfather <span style="font-style: italic; color:grey; font-weight:400">(Optional)</span></p>
         <div>
           <div class="mb-3">
-            <label>Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-name" autocomplete="off" required value="<?php echo $Godfather_name ?>">
+            <label>Name</label>
+            <input type="text" class="form-control" name="Godfather-name" autocomplete="off" value="<?php echo $Godfather_name ?>">
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-familyname" autocomplete="off" required value="<?php echo $Godfather_familyname ?>">
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name</label>
+              <input type="text" class="form-control" name="Godfather-familyname" autocomplete="off" value="<?php echo $Godfather_familyname ?>">
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Child-suffix" autocomplete="off" value="<?php echo $Godfather_suffix ?>">
+            </div>
           </div>
         </div>
-        <p>Godfather Residence</p>
+        <p>Godfather Residence <span style="font-style: italic; color:grey; font-weight:400">(Optional)</span></p>
         <div>
           <div class="mb-3">
-            <label>Municipality <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-residence-municipality" autocomplete="off" required value="<?php echo $godfather_municipality ?>">
+            <label>Municipality</label>
+            <input type="text" class="form-control" name="Godfather-residence-municipality" autocomplete="off" value="<?php echo $godfather_municipality ?>">
           </div>
           <div class="mb-3">
-            <label>Barangay <span>*</span></label>
-            <input type="text" class="form-control" name="Godfather-residence-barangay" autocomplete="off" required value="<?php echo $godfather_barangay ?>">
+            <label>Barangay</label>
+            <input type="text" class="form-control" name="Godfather-residence-barangay" autocomplete="off" value="<?php echo $godfather_barangay ?>">
           </div>
         </div>
-        <p>Godmother</p>
+        <p>Godmother <span style="font-style: italic; color:grey; font-weight:400">(Optional)</span></p>
         <div>
           <div class="mb-3">
-            <label>Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-name" autocomplete="off" required value="<?php echo $Godmother_name ?>">
+            <label>Name</label>
+            <input type="text" class="form-control" name="Godmother-name" autocomplete="off" value="<?php echo $Godmother_name ?>">
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-familyname" autocomplete="off" required value="<?php echo $Godmother_familyname ?>">
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name</label>
+              <input type="text" class="form-control" name="Godmother-familyname" autocomplete="off" value="<?php echo $Godmother_familyname ?>">
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Child-suffix" autocomplete="off" value="<?php echo $Godmother_suffix ?>">
+            </div>
           </div>
         </div>
-        <p>Godmother Residence</p>
+        <p>Godmother Residence <span style="font-style: italic; color:grey; font-weight:400">(Optional)</span></p>
         <div>
           <div class="mb-3">
-            <label>Municipality <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-residence-municipality" autocomplete="off" required value="<?php echo $godmother_municipality ?>">
+            <label>Municipality</label>
+            <input type="text" class="form-control" name="Godmother-residence-municipality" autocomplete="off" value="<?php echo $godmother_municipality ?>">
           </div>
           <div class="mb-3">
-            <label>Barangay <span>*</span></label>
-            <input type="text" class="form-control" name="Godmother-residence-barangay" autocomplete="off" required value="<?php echo $godmother_barangay ?>">
+            <label>Barangay</label>
+            <input type="text" class="form-control" name="Godmother-residence-barangay" autocomplete="off" value="<?php echo $godmother_barangay ?>">
           </div>
         </div>
         <p>Book</p>
@@ -216,9 +243,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Father-name" autocomplete="off" required value="<?php echo $Father_name ?>">
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Father-familyname" autocomplete="off" required value="<?php echo $Father_familyname ?>">
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Father-familyname" autocomplete="off" required value="<?php echo $Father_familyname ?>">
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Child-suffix" autocomplete="off" value="<?php echo $Father_suffix ?>">
+            </div>
           </div>
         </div>
         <p>Place of Origin</p>
@@ -238,9 +271,15 @@ if (isset($_POST['submit'])) {
             <label>Name <span>*</span></label>
             <input type="text" class="form-control" name="Mother-name" autocomplete="off" required value="<?php echo $Mother_name ?>">
           </div>
-          <div class="mb-3">
-            <label>Family Name <span>*</span></label>
-            <input type="text" class="form-control" name="Mother-familyname" autocomplete="off" required value="<?php echo $Mother_familyname ?>">
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label>Family Name <span>*</span></label>
+              <input type="text" class="form-control" name="Mother-familyname" autocomplete="off" required value="<?php echo $Mother_familyname ?>">
+            </div>
+            <div>
+              <label>Suffix</label>
+              <input type="text" class="form-control" name="Child-suffix" autocomplete="off" value="<?php echo $Godmother_suffix ?>">
+            </div>
           </div>
         </div>
         <p>Place of Origin</p>
@@ -254,7 +293,7 @@ if (isset($_POST['submit'])) {
             <input type="text" class="form-control" name="mother-origin-barangay" autocomplete="off" required value="<?php echo $Mother_barangay ?>">
           </div>
         </div>
-        <p>Residence</p>
+        <p>Place of Baptism</p>
         <div>
           <div class="mb-3">
             <label>Municipality <span>*</span></label>
@@ -266,8 +305,8 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Remarks <span style="color: red; font-weight:normal">*</span></p>
-          <input type="text" class="form-control" name="Remarks" autocomplete="off" required value="<?php echo $remarks ?>">
+          <p>Remarks <span style="font-style: italic; color:grey; font-weight:normal">(Optional)</span></p>
+          <input type="text" class="form-control" name="Remarks" autocomplete="off" value="<?php echo $remarks ?>">
         </div>
         <div class="mb-3">
           <p>Officiating Minister <span style="color: red; font-weight:normal">*</span></p>
@@ -277,21 +316,13 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="mb-3">
-          <p>Priest of the Week</p>
-          <input type="text" class="form-control" name="priest" autocomplete="off" required value="<?php echo $priest ?>">
+          <p>Priest of the Week <span style="color: grey; font-weight:normal; font-style:italic">(Signatories)</span></p>
+          <input type="text" class="form-control" name="priest" autocomplete="off" value="<?php echo $priest ?>">
         </div>
       </div>
     </div>
     <button id="submitt" type="submit" name="submit" class="btn btn-primary my-5" style="width: 50%; height:50px">UPDATE</button>
   </form>
-  <script>
-    document.getElementById("back").addEventListener('click', function() {
-      window.location.href = "baptismal.php"
-    });
-    window.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('live_birth').value = "<?php echo $folder; ?>";
-    });
-  </script>
 </body>
 
 </html>

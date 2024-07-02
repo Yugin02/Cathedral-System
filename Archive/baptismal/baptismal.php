@@ -250,9 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
                 }
               }
             } elseif ($searchType == "Name") {
-              $sql = "SELECT * FROM `baptismal` 
-              WHERE Child_name LIKE '%$book_number_value%' 
-              OR Child_familyname LIKE '%$book_number_value%'";
+              $sql = "SELECT *, CONCAT(Child_name, ' ', Child_familyname) AS child_name FROM `baptismal` WHERE CONCAT(Child_name, ' ', Child_familyname) LIKE '%$book_number_value%' OR Child_name LIKE '%$book_number_value$' OR Child_familyname LIKE '%$book_number_value%'";
               $result = mysqli_query($con, $sql);
               if ($result) {
                 if (mysqli_num_rows($result) > 0) {

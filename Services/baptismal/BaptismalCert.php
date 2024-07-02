@@ -105,9 +105,9 @@ function ordinalSuffix($day)
       Certificate of Baptism</h1>
     <div class="align-self-center fontSize" style="width: 85%; font-size:24px; margin-top: -30px; padding: 1% 7%; text-align:start; font-weight:500">
       <p style="text-align: center; margin-bottom:7%">This is to certify that</p>
-      <p style="font-weight: 600; font-size:27px">CHILD: <span style="border-bottom:none; margin-left:75px; font-weight:700"><?php echo strtoupper($child_name) ?> <?php $row['Child_suffix']; ?></span></p>
-      <p style="font-weight: 600; font-size:27px">FATHER: <span style="border-bottom:none; margin-left:55px; font-weight:700"><?php echo $father_name ?> <?php $row['Father_suffix']; ?></span></p>
-      <p style="font-weight: 600; font-size:27px">MOTHER: <span style="border-bottom:none; margin-left:45px; font-weight:700"><?php echo $mother_name ?> <?php $row['Mother_suffix']; ?></span></p>
+      <p style="font-weight: 600; font-size:27px">CHILD: <span style="border-bottom:none; margin-left:75px; font-weight:700"><?php echo strtoupper($child_name) ?> <?php echo $row['Child_suffix']; ?></span></p>
+      <p style="font-weight: 600; font-size:27px">FATHER: <span style="border-bottom:none; margin-left:55px; font-weight:700"><?php echo $father_name ?> <?php echo $row['Father_suffix']; ?></span></p>
+      <p style="font-weight: 600; font-size:27px">MOTHER: <span style="border-bottom:none; margin-left:45px; font-weight:700"><?php echo $mother_name ?> <?php echo $row['Mother_suffix']; ?></span></p>
       <p style="font-weight: 600; font-size:27px">Date of Birth: <span style="border-bottom:none; margin-left:8px; font-weight:700"><?php echo $date_of_birth ?></span></p>
       <p style="font-weight: 600; font-size:27px">Place of Birth: <span style="border-bottom:none; margin-left:0px; font-weight:700"><?php echo $place_of_birth ?></span></p>
       <p style="text-align: center; margin:7% 0; letter-spacing: 2.4px">was solemnly BAPTIZED according to the <br> rites of the Roman Catholic Church </p>
@@ -119,12 +119,13 @@ function ordinalSuffix($day)
         <span>
           <?php if ($noGodParents) {
           } elseif ($noGodFather) {
-            echo $godmother_name;
+            echo $godmother_name . " " . $row['Godmother_suffix'];
           } elseif ($noGodMother) {
-            echo $godfather_name;
+            echo $godfather_name . " " . $row['Godfather_suffix'];
           } else {
-            echo $godfather_name ?> and <?php echo $godmother_name;
-                                      } ?>
+            echo $godfather_name . " " . $row['Godfather_suffix'] ?> and
+          <?php echo $godmother_name . " " . $row['Godmother_suffix'];
+          } ?>
         </span>
       </p>
       <p>as it appears in the BAPTISMAL REGISTER</p>
