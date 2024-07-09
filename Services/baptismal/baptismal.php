@@ -75,7 +75,7 @@ include '../../database.php';
           $search = mysqli_real_escape_string($con, $_POST['search']);
 
           $sql = "SELECT *, CONCAT_WS(' ', Child_name, Child_familyname) AS fullname,
-          CONCAT_WS(' ', month, day, year) AS date FROM `baptismal` 
+          CONCAT_WS(baptism_month, baptism_day, baptism_year) AS date FROM `baptismal` 
           WHERE Child_name LIKE '%$search%' 
           OR Child_familyname LIKE '%$search%' 
           OR month LIKE '%$search%' 
