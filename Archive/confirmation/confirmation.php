@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $value -= 1;
   }
 }
-
+$book_number_value = $_SESSION['book_number'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
   $Child_name = $_POST['childName'];
   $Child_familyname = $_POST['childFamilyName'];
@@ -313,6 +313,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
           ?>
         </tbody>
       </table>
+    </div>
+    <div>
+      <form method="get" action="confirmationEvidence.php" class="ms-auto evidenceButton" target="_blank">
+        <input type="hidden" name="bookNumber" value="<?php echo $book_number_value ?>">
+        <input type="hidden" name="bookPage" value="<?php echo $value ?>">
+        <button type="submit">Evidence</button>
+      </form>
     </div>
   </section>
   <footer class="d-flex flex-column">

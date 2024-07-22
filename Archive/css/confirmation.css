@@ -162,3 +162,9 @@ tbody tr td div {
   height: 50px;
   width: 155px;
 }
+.evidenceButton button {
+  border-radius: 10px;
+  background-color: #88cad6;
+  margin-top: 10px;
+  padding: 10px 20px;
+}

@@ -1,6 +1,7 @@
 <?php
 include '../../database.php';
 
+
 session_start();
 if (!isset($_POST['search1']) && !isset($_POST["add"]) && !isset($_POST["subtract"]) && !isset($_POST["searchPage"])) {
   session_destroy();
@@ -18,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $value -= 1;
   }
 }
-
+$book_number_value = $_SESSION['book_number'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
   $Child_name = $_POST['childName'];
   $Child_familyname = $_POST['childFamilyName'];
@@ -123,19 +124,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
       </form>
       <button style=" color:black; border: solid 1px black; padding:0; margin:0;" type="button" class="add_data_button btn btn-info"><a style="border:none; padding: 15px 20px; text-decoration:none; color:black; font-weight:600" href="BaptismalAddData.php">Add Data</a></button>
     </div>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="d-flex align-items-center gap-2 page" style="margin-bottom: 10px;">
-      <button type="submit" name="searchPage" style="display: none;"></button>
-      <p style="margin: 0;">Page</p>
-      <button type="submit" name="subtract" <?php if ($value <= 1) echo "disabled"; ?>><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
-        </svg></button>
-      <input style="display:none;" type="text" name="value1" value="<?php echo $value; ?>">
-      <input type="text" style="width: 5%; text-align:center; align-self:stretch" name="value2" value="<?php echo $value; ?>">
-      <button type="submit" name="add"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-        </svg></button>
-      <input type="hidden" name="value1" value="<?php echo $value; ?>">
-    </form>
+    <div class="d-flex">
+      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="d-flex align-items-center gap-2 page" style="margin-bottom: 10px;">
+        <button type="submit" name="searchPage" style="display: none;"></button>
+        <p style="margin: 0;">Page</p>
+        <button type="submit" name="subtract" <?php if ($value <= 1) echo "disabled"; ?>><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
+          </svg></button>
+        <input style="display:none;" type="text" name="value1" value="<?php echo $value; ?>">
+        <input type="text" style="width: 10%; text-align:center; align-self:stretch" name="value2" value="<?php echo $value; ?>">
+        <button type="submit" name="add"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+          </svg></button>
+        <input type="hidden" name="value1" value="<?php echo $value; ?>">
+      </form>
+    </div>
 
     <div class="table-responsive">
       <table class="table text-center table-responsive table-hover align-middle" style="background: #88CAD6; border:1px solid #000; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); font-size: 13px; width:100vw; min-width: 135rem">
@@ -217,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
               $_SESSION['book_number'] = $book_number_value;
               $sql = "SELECT * FROM `baptismal` 
               WHERE Book_number = '$book_number_value'
-              and Book_page = '1'";
+              and Book_page = '1' ORDER BY Book_line";
               $result = mysqli_query($con, $sql);
               if ($result) {
                 if (mysqli_num_rows($result) > 0) {
@@ -294,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
             if (isset($_SESSION['book_number'])) {
               $book_number_value = $_SESSION['book_number'];
               $sql = "SELECT * FROM `baptismal` 
-              WHERE Book_page LIKE '$value' and Book_number LIKE '$book_number_value'";
+              WHERE Book_page LIKE '$value' and Book_number LIKE '$book_number_value' ORDER BY Book_line";
               $result = mysqli_query($con, $sql);
               if ($result) {
                 if (mysqli_num_rows($result) > 0) {
@@ -373,6 +376,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
           ?>
         </tbody>
       </table>
+    </div>
+    <div>
+      <form method="get" action="baptismalEvidence.php" class="ms-auto evidenceButton" target="_blank">
+        <input type="hidden" name="bookNumber" value="<?php echo $book_number_value ?>">
+        <input type="hidden" name="bookPage" value="<?php echo $value ?>">
+        <button type="submit">Evidence</button>
+      </form>
     </div>
   </section>
   <footer class="d-flex flex-column">

@@ -245,7 +245,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="mb-3">
           <p>Live Birth <span style="color: grey; font-weight:normal; font-style:italic">(Optional)</span></p>
-          <input type="file" class="form-control" name="live-birth" autocomplete="off">
+          <input type="file" class="form-control" name="live-birth" autocomplete="off" multiple>
         </div>
         <p>Book</p>
         <div class="d-flex gap-3">
