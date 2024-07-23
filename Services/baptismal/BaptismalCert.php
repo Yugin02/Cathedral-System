@@ -131,6 +131,7 @@ function ordinalSuffix($day)
       <p>as it appears in the BAPTISMAL REGISTER</p>
       <p>Book: <span><?php echo $Book_number ?></span> Page: <span><?php echo $Book_page ?></span> Line: <span><?php echo $Book_line ?></span></p>
       <p style="margin-top: 5%;">Given this <span> <?php echo ordinalSuffix($currentDay) ?></span> day of <span> <?php echo $currentMonth ?> </span>, <span> <?php echo $currentYear ?> </span> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
+      <p id="marriagePurpose">For Marriage purposes only. <button id="hideButton" style="border: none; background-color:transparent; color:blue; cursor:pointer; text-decoration:underline">click here to hide</button></p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;
@@ -139,7 +140,12 @@ function ordinalSuffix($day)
       margin:3% 15% 0"> <span><?php echo $priest ?></span><br>Pastor</p>
   </section>
   <script type="text/javascript">
+    document.getElementById("hideButton").addEventListener('click', function() {
+      document.getElementById("marriagePurpose").style.visibility = "hidden";
+    })
+
     function printCertificate() {
+      document.getElementById("hideButton").style.visibility = "hidden";
       var certificateElement = document.getElementById("certificate");
 
       var originalBorder = certificateElement.style.border;
@@ -167,6 +173,7 @@ function ordinalSuffix($day)
           win.close();
         };
       });
+      document.getElementById("hideButton").style.visibility = "visible";
     }
   </script>
 </body>
