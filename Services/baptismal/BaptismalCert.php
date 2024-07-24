@@ -73,8 +73,13 @@ function ordinalSuffix($day)
 
 <body class="d-flex flex-column align-items-center">
   <div class="d-flex justify-content-between align-items-center align-self-stretch p-5">
-    <div>
+    <div class="d-flex gap-2">
       <button class="certbutton" onclick="printCertificate()">Print<img src="../icon/print.png" alt=""></button>
+      <select id="certificatePurpose" style="border: 2px solid #000;" class="form-select" aria-label="Default select example">
+        <option selected>Certificate purposes</option>
+        <option value="marriage">Marriage</option>
+        <option value="burial">Burial</option>
+      </select>
     </div>
     <div><a href="./baptismal.php"><img src="../icon/close.png" alt=""></a></div>
   </div>
@@ -131,7 +136,7 @@ function ordinalSuffix($day)
       <p>as it appears in the BAPTISMAL REGISTER</p>
       <p>Book: <span><?php echo $Book_number ?></span> Page: <span><?php echo $Book_page ?></span> Line: <span><?php echo $Book_line ?></span></p>
       <p style="margin-top: 5%;">Given this <span> <?php echo ordinalSuffix($currentDay) ?></span> day of <span> <?php echo $currentMonth ?> </span>, <span> <?php echo $currentYear ?> </span> at the Parish Office, <br> Borongan City, Eastern Samar, Philippines.</p>
-      <p id="marriagePurpose">For Marriage purposes only. <button id="hideButton" style="border: none; background-color:transparent; color:blue; cursor:pointer; text-decoration:underline">click here to hide</button></p>
+      <p id="purpose" style="display: none;">For Marriage purposes only.</p>
     </div>
     <p class="align-self-end" style="color: #000;
       text-align: center;
@@ -140,12 +145,21 @@ function ordinalSuffix($day)
       margin:3% 15% 0"> <span><?php echo $priest ?></span><br>Pastor</p>
   </section>
   <script type="text/javascript">
-    document.getElementById("hideButton").addEventListener('click', function() {
-      document.getElementById("marriagePurpose").style.visibility = "hidden";
+    const purpose = document.getElementById("certificatePurpose");
+    const purpose1 = document.getElementById("purpose");
+    purpose.addEventListener('change', function() {
+      purpose1.style.display = "block"
+      if (purpose.value == "marriage") {
+        purpose1.innerText = "For Marriage purposes only.";
+      } else if (purpose.value == "burial") {
+        purpose1.innerText = "For Burial purposes only.";
+      } else {
+        purpose1.style.display = "none";
+      }
+
     })
 
     function printCertificate() {
-      document.getElementById("hideButton").style.visibility = "hidden";
       var certificateElement = document.getElementById("certificate");
 
       var originalBorder = certificateElement.style.border;
@@ -173,7 +187,6 @@ function ordinalSuffix($day)
           win.close();
         };
       });
-      document.getElementById("hideButton").style.visibility = "visible";
     }
   </script>
 </body>
